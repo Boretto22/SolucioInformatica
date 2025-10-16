@@ -1,12 +1,14 @@
+import Estetica.GUI;
 import Estetica.Paleta;
 import Estetica.Tipografia;
 import processing.core.PApplet;
 
 public class FutbolManager extends PApplet {
 
-    //Palera de la app
+    //Paleta de la app
     Paleta appPaleta;
     Tipografia appTipografia;
+    GUI appGUI;
 
 
     public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class FutbolManager extends PApplet {
     public void setup(){
         appPaleta = new Paleta(this);
         appTipografia = new Tipografia(this);
-
+        appGUI = new GUI(); 
     }
 
     public void draw(){
@@ -37,11 +39,35 @@ public class FutbolManager extends PApplet {
         textFont(appTipografia.getThirdTipografia());
         text("Paragrafo de la App", 50,300);
 
+        //Dibuixa pantalla corresponent
+        // Dibuixa la pantalla corresponent
+        switch(GUI.pantallaActual) {
+            case LOGIN:
+                GUI.dibujoPantallaLogIn(this);
+                break;
 
-
+            case INICIAL:
+                GUI.dibujoPantallaInicial(this);
+                break;
+        }
 
         // Mostra la paleta de colors
         //appPaleta.displayPaleta(this, 100,100,width-200);
         appTipografia.displayTipografia(this, 100,400,500);
+
     }
+
+    // ******************* KEYBOARD interaction ***************************** //
+
+    public void keyPressed(){
+        if(key=='0'){
+            GUI.pantallaActual = GUI.PANTALLA.LOGIN;
+        }
+        else if(key=='1'){
+            GUI.pantallaActual = GUI.PANTALLA.INICIAL;
+        }
+
+    }
+
+
 }
