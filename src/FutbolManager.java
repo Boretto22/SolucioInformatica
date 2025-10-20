@@ -5,8 +5,7 @@ import processing.core.PApplet;
 
 public class FutbolManager extends PApplet {
 
-    //Paleta de la app
-    Paleta appPaleta;
+
     Tipografia appTipografia;
     GUI appGUI;
 
@@ -19,7 +18,6 @@ public class FutbolManager extends PApplet {
         fullScreen();
     }
     public void setup(){
-        appPaleta = new Paleta(this);
         appTipografia = new Tipografia(this);
         appGUI = new GUI(this);
     }
@@ -43,11 +41,11 @@ public class FutbolManager extends PApplet {
         // Dibuixa la pantalla corresponent
         switch(GUI.pantallaActual) {
             case LOGIN:
-                GUI.dibujoPantallaLogIn(this);
+                appGUI.dibujoPantallaLogIn(this);
                 break;
 
             case INICIAL:
-                GUI.dibujoPantallaInicial(this);
+                appGUI.dibujoPantallaInicial(this);
                 break;
         }
 

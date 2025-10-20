@@ -5,6 +5,8 @@ import processing.core.PApplet;
 
 public class GUI{
 
+    Paleta paleta;
+
     //Botons
     public static Boto_Prova b1;
 
@@ -20,22 +22,23 @@ public class GUI{
     public GUI(PApplet p5){
         pantallaActual = PANTALLA.LOGIN;
 
-        b1 = new Boto_Prova(p5, "RED", 40,400,250,100);
-        text1 = new Text_Field(p5, 50,20,50,20);
+        paleta = new Paleta(p5);
+
+        b1 = new Boto_Prova(p5, "ENTRENADOR", p5.width/2-125,p5.height/2,250,100);
+        text1 = new Text_Field(p5, p5.width/2-125, p5.height/2+200, 250,100);
     }
     //Pantalles GUI
 
-    public static void dibujoPantallaLogIn(PApplet p5){
-        p5.background(255);
-        p5.background(55);
-        zonaLogo(p5);
-        sideBar(p5);
+    public void dibujoPantallaLogIn(PApplet p5){
+        p5.background (paleta.getColorAt(0));
+        logoLogIn(p5);
         b1.display(p5);
         text1.display(p5);
+        p5.text("USERNAME", p5.width/2+125, p5.height/2+150);
 
     }
 
-    public static void dibujoPantallaInicial(PApplet p5){
+    public void dibujoPantallaInicial(PApplet p5){
         p5.background(55);
         p5.rect(50,50,100,20);
     }
@@ -43,7 +46,8 @@ public class GUI{
     //Zones de la GUI
 
     public static void logoLogIn(PApplet p5){
-
+        p5.fill(100);
+        p5.circle(p5.width/2, p5.height/2-250, 300);
     }
 
     public static void zonaLogo(PApplet p5){

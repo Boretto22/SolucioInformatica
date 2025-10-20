@@ -4,16 +4,16 @@ import processing.core.PApplet;
 
 public class Paleta {
 
-    int[]colors;
+    public int[]colors;
 
     public Paleta(PApplet p5){
         this.setColors(p5);
     }
 
     // Estableix colors de l'App
-    void setColors(PApplet p5){
+    public void setColors(PApplet p5){
         this.colors = new int[5];
-        this.colors[0] = p5.color(0xFF00E8BC);
+        this.colors[0] = p5.color(0xFF0099FF); //blau pantalla fondo
         this.colors[1] = p5.color(0xFF00E83E);
         this.colors[2] = p5.color(0xFF8B00E8);
         this.colors[3] = p5.color(0xFFE80000);
