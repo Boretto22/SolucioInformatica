@@ -21,11 +21,12 @@ public class FutbolManager extends PApplet {
     public void setup(){
         appPaleta = new Paleta(this);
         appTipografia = new Tipografia(this);
-        appGUI = new GUI(); 
+        appGUI = new GUI(this);
     }
 
     public void draw(){
         // Dibuixa el fons (blanc)
+
         background(255);
 
         textFont(appTipografia.getFirstTipografia());
@@ -39,7 +40,6 @@ public class FutbolManager extends PApplet {
         textFont(appTipografia.getThirdTipografia());
         text("Paragrafo de la App", 50,300);
 
-        //Dibuixa pantalla corresponent
         // Dibuixa la pantalla corresponent
         switch(GUI.pantallaActual) {
             case LOGIN:
@@ -57,7 +57,7 @@ public class FutbolManager extends PApplet {
 
     }
 
-    // ******************* KEYBOARD interaction ***************************** //
+    //KEYBOARD interaction
 
     public void keyPressed(){
         if(key=='0'){
@@ -67,6 +67,12 @@ public class FutbolManager extends PApplet {
             GUI.pantallaActual = GUI.PANTALLA.INICIAL;
         }
 
+    }
+
+    public void mousePressed(){
+        if(GUI.b1.mouseOverButton(this)){
+            println("B1 has been pressed!!");
+        }
     }
 
 
