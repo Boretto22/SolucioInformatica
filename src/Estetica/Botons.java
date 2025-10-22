@@ -2,7 +2,7 @@ package Estetica;
 
 import processing.core.PApplet;
 
-public class Boto_Prova {
+public class Botons {
     // Propietats d'un botó:
 
     float x, y, w, h;  // Posició (x, y) i dimensions (w, h)
@@ -10,18 +10,19 @@ public class Boto_Prova {
     int fillColorOver, fillColorDisabled;  // Colors del boto (actiu / inactiu).
     String textBoto;  // Text
     public boolean enabled;  // Estat del botó (actiu / inactiu).
-
+    Paleta paleta;
     // Constructor
-    public Boto_Prova(PApplet p5, String text, float x, float y, float w, float h){
+    public Botons(PApplet p5, String text, float x, float y, float w, float h){
+        paleta = new Paleta(p5);
         this.textBoto = text;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.enabled = true;
-        this.fillColor = p5.color(155, 55, 155);
-        this.fillColorOver = p5.color(255, 55, 155);
-        this.fillColorDisabled = p5.color(150);
+        this.fillColor = p5.color(paleta.getColorAt(2));
+        this.fillColorOver = p5.color(paleta.getColorAt(1));
+        this.fillColorDisabled = p5.color(100);
         this.strokeColor = p5.color(0);
     }
 

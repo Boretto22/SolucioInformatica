@@ -8,7 +8,7 @@ public class GUI{
     Paleta paleta;
 
     //Botons
-    public static Boto_Prova b1;
+    public static Botons b1, b2;
 
     //Enumerat de les pantalles de l'app
     public enum PANTALLA {LOGIN, INICIAL, SETTINGS, CREACIONCLUB, JUGADAS, PLANNING};
@@ -24,7 +24,8 @@ public class GUI{
 
         paleta = new Paleta(p5);
 
-        b1 = new Boto_Prova(p5, "ENTRENADOR", p5.width/2-125,p5.height/2,250,100);
+        b1 = new Botons(p5, "ENTRENADOR", p5.width/2-200,p5.height/2,250,100);
+        b2 = new Botons(p5,"JUGADOR", p5.width/2+200, p5.height/2, 250, 100);
         text1 = new Text_Field(p5, p5.width/2-125, p5.height/2+200, 250,100);
     }
     //Pantalles GUI
@@ -33,8 +34,10 @@ public class GUI{
         p5.background (paleta.getColorAt(0));
         logoLogIn(p5);
         b1.display(p5);
+        b2.display(p5);
         text1.display(p5);
-        p5.text("USERNAME", p5.width/2+125, p5.height/2+150);
+        p5.textSize(30);
+        p5.text("USERNAME", p5.width/2-125, p5.height/2+175);
 
     }
 
@@ -47,7 +50,7 @@ public class GUI{
 
     public static void logoLogIn(PApplet p5){
         p5.fill(100);
-        p5.circle(p5.width/2, p5.height/2-250, 300);
+        p5.circle(p5.width/2, p5.height/2-200, 300);
     }
 
     public static void zonaLogo(PApplet p5){
