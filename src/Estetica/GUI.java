@@ -24,8 +24,8 @@ public class GUI{
 
         paleta = new Paleta(p5);
 
-        b1 = new Botons(p5, "ENTRENADOR", p5.width/2-200,p5.height/2,250,100);
-        b2 = new Botons(p5,"JUGADOR", p5.width/2+200, p5.height/2, 250, 100);
+        b1 = new Botons(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
+        b2 = new Botons(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
         text1 = new Text_Field(p5, p5.width/2-125, p5.height/2+200, 250,100);
     }
     //Pantalles GUI

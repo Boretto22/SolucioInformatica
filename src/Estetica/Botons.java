@@ -32,7 +32,10 @@ public class Botons {
         this.enabled = b;
     }
 
-    public void setTextBoto(String t){ this.textBoto = t; }
+    public void setTextBoto(PApplet p5, String t){
+        p5.textSize(30);
+        this.textBoto = t;
+    }
 
     public void setColors(int cFill, int cStroke, int cOver, int cDisabled){
         this.fillColor = cFill;
