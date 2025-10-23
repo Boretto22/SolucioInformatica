@@ -66,8 +66,8 @@ public class Botons {
         p5.rect(this.x, this.y, this.w, this.h, 10);    // Rectangle del botó
 
         // Text (color, alineació i mida)
-        p5.fill(0); p5.textAlign(p5.CENTER); p5.textSize(20);
-        p5.text(textBoto, this.x + this.w/2, this.y + this.h/2 + 10);
+        p5.fill(0); p5.textAlign(p5.CENTER); p5.textSize(50);
+        p5.text(textBoto, this.x + this.w/2, this.y + this.h/2+15);
         p5.popStyle();
     }
 

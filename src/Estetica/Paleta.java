@@ -13,7 +13,7 @@ public class Paleta {
     // Estableix colors de l'App
     public void setColors(PApplet p5){
         this.colors = new int[5];
-        this.colors[0] = p5.color(0xFF0099FF); //blau pantalla fondo
+        this.colors[0] = p5.color(0xFF1C68A3); //blau pantalla fondo
         this.colors[1] = p5.color(0xFF1CA332); //verd botons damunt
         this.colors[2] = p5.color(0xFF2BE045); // verd botons no funciona
         this.colors[3] = p5.color(0xFFE80000);

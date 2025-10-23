@@ -1,12 +1,17 @@
 package Estetica;
-
 import static Estetica.Medida.*;
 import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PFont;
+import processing.core.PImage;
 
 public class GUI{
 
+    PFont pFont1;
+
     Paleta paleta;
 
+    PImage logo;
     //Botons
     public static Botons b1, b2;
 
@@ -20,24 +25,28 @@ public class GUI{
     public static Text_Field text1;
 
     public GUI(PApplet p5){
-        pantallaActual = PANTALLA.LOGIN;
 
+        logo = p5.loadImage("LogoApp.png");
+        pFont1 = p5.createFont("Roboto-Black.ttf", 30);
+        pantallaActual = PANTALLA.LOGIN;
         paleta = new Paleta(p5);
 
         b1 = new Botons(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new Botons(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
-        text1 = new Text_Field(p5, p5.width/2-125, p5.height/2+200, 250,100);
+        text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
     }
     //Pantalles GUI
 
     public void dibujoPantallaLogIn(PApplet p5){
         p5.background (paleta.getColorAt(0));
-        logoLogIn(p5);
+        logoLogIn(p5, logo);
         b1.display(p5);
         b2.display(p5);
         text1.display(p5);
-        p5.textSize(30);
-        p5.text("USERNAME", p5.width/2-125, p5.height/2+175);
+        p5.pushMatrix();
+        p5.textFont(pFont1);
+        p5.popMatrix();
+        p5.text("USERNAME", p5.width/2-200, p5.height/2+180);
 
     }
 
@@ -48,12 +57,13 @@ public class GUI{
 
     //Zones de la GUI
 
-    public static void logoLogIn(PApplet p5){
-        p5.fill(100);
-        p5.circle(p5.width/2, p5.height/2-200, 300);
+    public void logoLogIn(PApplet p5, PImage logo) {
+        p5.imageMode(PConstants.CENTER);
+        p5.image(logo, p5.width/2, p5.height/2 - 250, logoWidth/2+300, logoHeight/2+300);
     }
 
     public static void zonaLogo(PApplet p5){
+
         p5.fill(200,50,100);
         p5.rect(marginH, marginV, logoWidth, logoHeight);
         p5.fill(0);

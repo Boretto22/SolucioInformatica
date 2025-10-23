@@ -1,9 +1,8 @@
 import Estetica.GUI;
-import Estetica.Paleta;
 import Estetica.Tipografia;
 import processing.core.PApplet;
 
-public class FutbolManager extends PApplet {
+public class    PlayCoach extends PApplet {
 
 
     Tipografia appTipografia;
@@ -11,7 +10,7 @@ public class FutbolManager extends PApplet {
 
 
     public static void main(String[] args) {
-        PApplet.main("FutbolManager");
+        PApplet.main("PlayCoach");
     }
 
     public void settings(){
