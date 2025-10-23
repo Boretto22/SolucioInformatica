@@ -2,6 +2,9 @@ import Estetica.GUI;
 import Estetica.Tipografia;
 import processing.core.PApplet;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
+import java.security.Key;
+
 public class    PlayCoach extends PApplet {
 
 
@@ -63,6 +66,7 @@ public class    PlayCoach extends PApplet {
         else if(key=='1'){
             GUI.pantallaActual = GUI.PANTALLA.INICIAL;
         }
+        GUI.text1.keyPressed(key, keyCode);
 
     }
 
@@ -73,6 +77,7 @@ public class    PlayCoach extends PApplet {
         if (GUI.b2.mouseOverButton(this)){
             println("B2 has been pressed");
         }
+        GUI.text1.isPressed(this);
     }
 
 
