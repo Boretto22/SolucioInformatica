@@ -6,28 +6,29 @@ import static processing.core.PConstants.BACKSPACE;
 
 public class Text_Field {
 
+    Paleta paleta;
     //Propietats del camp de text
     int x, y, h, w;
     //Colors
     //*introduir colors de clase colors
-    int bgColor, fgColor, selectedColor, borderColor;
+    int TextFieldColor, textColor, selectedColor, borderColor;
     int borderWeight = 1;
     //Text del camp
     public String text = "";
     int textSize = 24;
-
     boolean selected = false;
     //Constructor
     //*constructor dels colors
     public Text_Field(PApplet p5, int x, int y, int w, int h) {
+        paleta = new Paleta(p5);
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.bgColor = p5.color(140, 140, 140);
-        this.fgColor = p5.color(0, 0, 0);
-        this.selectedColor = p5.color(190, 190, 60);
-        this.borderColor = p5.color(30, 30, 30);
+        this.TextFieldColor = p5.color(paleta.getColorAt(3));
+        this.textColor = p5.color(0);
+        this.selectedColor = p5.color(paleta.getColorAt(1));
+        this.borderColor = p5.color(paleta.getColorAt(3));
         this.borderWeight = 1;
     }
 
@@ -37,14 +38,14 @@ public class Text_Field {
         if (selected) {
             p5.fill(selectedColor);
         } else {
-            p5.fill(bgColor);
+            p5.fill(TextFieldColor);
         }
 
         p5.strokeWeight(borderWeight);
         p5.stroke(borderColor);
         p5.rect(x, y, w, h, 5);
 
-        p5.fill(fgColor);
+        p5.fill(textColor);
         p5.textSize(textSize); p5.textAlign(p5.LEFT, p5.CENTER);
         p5.text(text, x + 5, y + h - textSize);
         p5.popStyle();
