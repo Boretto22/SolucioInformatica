@@ -14,7 +14,7 @@ public class GUI{
 
     PImage logo;
     //Botons
-    public static Botons b1, b2;
+    public static Botons b1, b2, b3;
 
     //Enumerat de les pantalles de l'app
     public enum PANTALLA {LOGIN, INICIAL, SETTINGS, CREACIONCLUB, JUGADAS, PLANNING};
@@ -34,6 +34,7 @@ public class GUI{
 
         b1 = new Botons(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new Botons(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
+        b3 = new Botons(p5,"LOGIN", p5.width/2-250, p5.height/2+350, 500,75);
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
     }
     //Pantalles GUI
@@ -43,6 +44,7 @@ public class GUI{
         logoLogIn(p5, logo);
         b1.display(p5);
         b2.display(p5);
+        b3.display(p5);
         text1.display(p5);
         p5.pushMatrix();
         p5.textFont(pFont1);

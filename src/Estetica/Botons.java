@@ -20,8 +20,8 @@ public class Botons {
         this.w = w;
         this.h = h;
         this.enabled = true;
-        this.fillColor = p5.color(paleta.getColorAt(2));
-        this.fillColorOver = p5.color(paleta.getColorAt(1));
+        this.fillColor = paleta.getColorAt(2);
+        this.fillColorOver = paleta.getColorAt(1);
         this.fillColorDisabled = p5.color(100);
         this.strokeColor = p5.color(0);
     }

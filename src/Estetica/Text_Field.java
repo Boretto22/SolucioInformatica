@@ -15,7 +15,7 @@ public class Text_Field {
     int borderWeight = 1;
     //Text del camp
     public String text = "";
-    int textSize = 24;
+    int textSize = 40;
     boolean selected = false;
     //Constructor
     //*constructor dels colors
@@ -25,10 +25,10 @@ public class Text_Field {
         this.y = y;
         this.w = w;
         this.h = h;
-        this.TextFieldColor = p5.color(paleta.getColorAt(3));
+        this.TextFieldColor = paleta.getColorAt(3);
         this.textColor = p5.color(0);
-        this.selectedColor = p5.color(paleta.getColorAt(1));
-        this.borderColor = p5.color(paleta.getColorAt(3));
+        this.selectedColor = paleta.getColorAt(1);
+        this.borderColor = paleta.getColorAt(3);
         this.borderWeight = 1;
     }
 
@@ -73,7 +73,7 @@ public class Text_Field {
 
     // Afegeix la lletra c al final del text
     public void addText(char c) {
-        if (this.text.length() + 1 < w) {
+        if (this.text.length() < 40) {
             this.text += c;
         }
     }
