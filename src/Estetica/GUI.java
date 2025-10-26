@@ -12,7 +12,7 @@ public class GUI{
 
     Paleta paleta;
 
-    PImage logo;
+    PImage logo, logoPantalles;
     //Botons
     public static Botons b1, b2, b3;
 
@@ -28,6 +28,7 @@ public class GUI{
     public GUI(PApplet p5){
 
         logo = p5.loadImage("LogoApp.png");
+        logoPantalles = p5.loadImage("Logo.png");
         pFont1 = p5.createFont("Roboto-Black.ttf", 30);
         pantallaActual = PANTALLA.LOGIN;
         paleta = new Paleta(p5);
@@ -54,15 +55,20 @@ public class GUI{
     }
 
     public void dibujoPantallaInicial(PApplet p5){
-        p5.background(55);
-        p5.rect(50,50,100,20);
+        p5.background(paleta.getColorAt(0));
+        logoPantallas(p5, logoPantalles);
     }
 
     //Zones de la GUI
 
     public void logoLogIn(PApplet p5, PImage logo) {
         p5.imageMode(PConstants.CENTER);
-        p5.image(logo, p5.width/2, p5.height/2 - 250, logoWidth/2+300, logoHeight/2+300);
+        p5.image(logo, p5.width/2, p5.height/2 - 250, logoWidth/2+450, logoHeight/2+450);
+    }
+
+    public void logoPantallas(PApplet p5, PImage logoPantalles) {
+        p5.imageMode(PConstants.CENTER);
+        p5.image(logoPantalles, p5.width/2-900, p5.height/2-475, logoPantallesWidth/2, logoPantallesHeight/2);
     }
 
     public static void zonaLogo(PApplet p5){

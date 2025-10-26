@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8923a238-6649-4ad7-82aa-17c3b9a5060a" name="Changes" comment=".">
+      <change afterPath="$PROJECT_DIR$/Data/Logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Botons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Botons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/LogoApp.png" beforeDir="false" afterPath="$PROJECT_DIR$/Data/LogoApp.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Estetica/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Text_Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Text_Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayCoach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayCoach.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Estetica/Medida.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Medida.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Estetica/Paleta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Paleta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +68,7 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mirot\Desktop\Informàtica\SolucioInformatica\Data" />
+      <recent name="C:\Users\mirot\Desktop\Informàtica\SolucioInformatica" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -174,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761204242942</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary=".">
+      <option name="closed" value="true" />
+      <created>1761318455632</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1761318455632</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

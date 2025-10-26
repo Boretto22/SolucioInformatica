@@ -15,6 +15,8 @@ public class Medida {
     // Dimensions Logo
     public static float logoWidth  = 300, logoHeight = 300;
 
+    public static float logoPantallesWidth = 300, logoPantallesHeight = 300;
+
     // Dimensions Banner
     public static float bannerWidth  = 1560, bannerHeight = 300;
 
