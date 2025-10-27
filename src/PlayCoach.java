@@ -81,6 +81,10 @@ public class    PlayCoach extends PApplet {
             println("B3 has been pressed!!");
             GUI.pantallaActual = GUI.PANTALLA.INICIAL;
         }
+        if (GUI.b4.mouseOverButton(this)) {
+            println("B4 has been pressed!!");
+        }
+
         GUI.text1.isPressed(this);
     }
 

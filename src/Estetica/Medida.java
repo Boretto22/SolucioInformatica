@@ -10,7 +10,7 @@ public class Medida {
     public static float marginH = 20, marginV = 20;
 
     // Dimensions Zona Lateral
-    public static float sidebarWidth  = 300, sidebarHeight = 720;
+    public static float sidebarWidth  = 300, sidebarHeight = 900;
 
     // Dimensions Logo
     public static float logoWidth  = 300, logoHeight = 300;

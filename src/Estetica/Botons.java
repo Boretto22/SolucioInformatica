@@ -1,10 +1,12 @@
 package Estetica;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Botons {
     // Propietats d'un botó:
 
+    PImage img;
     float x, y, w, h;  // Posició (x, y) i dimensions (w, h)
     int fillColor, strokeColor; // Colors del boto (fill / stroke).
     int fillColorOver, fillColorDisabled;  // Colors del boto (actiu / inactiu).
@@ -24,6 +26,15 @@ public class Botons {
         this.fillColorOver = paleta.getColorAt(1);
         this.fillColorDisabled = p5.color(100);
         this.strokeColor = p5.color(0);
+    }
+
+    public Botons( PImage img, float x, float y, float w, float h) {
+        this.img = img;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.textBoto = "";
     }
 
     // Setters

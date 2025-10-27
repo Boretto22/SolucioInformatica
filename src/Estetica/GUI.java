@@ -10,11 +10,11 @@ public class GUI{
 
     PFont pFont1;
 
-    Paleta paleta;
+    static Paleta paleta;
 
     PImage logo, logoPantalles;
     //Botons
-    public static Botons b1, b2, b3;
+    public static Botons b1, b2, b3, b4;
 
     //Enumerat de les pantalles de l'app
     public enum PANTALLA {LOGIN, INICIAL, SETTINGS, CREACIONCLUB, JUGADAS, PLANNING};
@@ -36,6 +36,7 @@ public class GUI{
         b1 = new Botons(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new Botons(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
         b3 = new Botons(p5,"LOGIN", p5.width/2-250, p5.height/2+350, 500,75);
+        b4 = new Botons(logoPantalles, p5.width/2,p5.height/2, 200,200);
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
     }
     //Pantalles GUI
@@ -57,6 +58,8 @@ public class GUI{
     public void dibujoPantallaInicial(PApplet p5){
         p5.background(paleta.getColorAt(0));
         logoPantallas(p5, logoPantalles);
+        sideBar(p5);
+        b4.display(p5);
     }
 
     //Zones de la GUI
@@ -71,20 +74,10 @@ public class GUI{
         p5.image(logoPantalles, p5.width/2-900, p5.height/2-475, logoPantallesWidth/2, logoPantallesHeight/2);
     }
 
-    public static void zonaLogo(PApplet p5){
-
-        p5.fill(200,50,100);
-        p5.rect(marginH, marginV, logoWidth, logoHeight);
-        p5.fill(0);
-        p5.text("LOGO", marginH + logoWidth/2, marginV + logoHeight/2);
-    }
 
     public static void sideBar(PApplet p5){
-        // Zona Sidebar ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        p5.fill(50,200,100);
-        p5.rect(marginH, 2*marginV + logoHeight, sidebarWidth, sidebarHeight);
-        p5.fill(0);
-        p5.text("SIDEBAR", marginH + sidebarWidth/2, marginV + logoHeight + sidebarHeight/2);
+        p5.fill (paleta.getColorAt(4));
+        p5.rect(marginH, 2*marginV + 100, sidebarWidth, sidebarHeight, 20);
     }
 
    }
