@@ -2,11 +2,12 @@ package Estetica;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.core.PShape;
 
 public class Botons {
     // Propietats d'un botó:
 
-    PImage img;
+    PShape shape;
     float x, y, w, h;  // Posició (x, y) i dimensions (w, h)
     int fillColor, strokeColor; // Colors del boto (fill / stroke).
     int fillColorOver, fillColorDisabled;  // Colors del boto (actiu / inactiu).
@@ -28,13 +29,17 @@ public class Botons {
         this.strokeColor = p5.color(0);
     }
 
-    public Botons( PImage img, float x, float y, float w, float h) {
-        this.img = img;
+    public Botons(PApplet p5,PShape shape, float x, float y, float w, float h) {
+        paleta = new Paleta(p5);
+        this.shape = shape;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.textBoto = "";
+        this.fillColor = paleta.getColorAt(2);
+        this.fillColorOver = paleta.getColorAt(5);
+
     }
 
     // Setters
@@ -74,11 +79,20 @@ public class Botons {
             p5.fill(fillColor);          // Color actiu però ratolí fora
         }
         p5.stroke(strokeColor); p5.strokeWeight(2);        //Color i gruixa del contorn
+        p5.fill(255);
         p5.rect(this.x, this.y, this.w, this.h, 10);    // Rectangle del botó
 
         // Text (color, alineació i mida)
-        p5.fill(0); p5.textAlign(p5.CENTER); p5.textSize(50);
-        p5.text(textBoto, this.x + this.w/2, this.y + this.h/2+15);
+        if(this.shape==null) {
+            p5.fill(0);
+            p5.textAlign(p5.CENTER);
+            p5.textSize(50);
+            p5.text(textBoto, this.x + this.w / 2, this.y + this.h / 2 + 15);
+        }
+        else {
+            p5.shapeMode(p5.CENTER);
+            p5.shape(shape, this.x + this.w / 2, this.y + this.h / 2, this.w, this.h);
+        }
         p5.popStyle();
     }
 

@@ -1,9 +1,7 @@
 package Estetica;
 import static Estetica.Medida.*;
-import processing.core.PApplet;
-import processing.core.PConstants;
-import processing.core.PFont;
-import processing.core.PImage;
+
+import processing.core.*;
 import Estetica.Text_Field;
 
 public class GUI{
@@ -13,8 +11,9 @@ public class GUI{
     static Paleta paleta;
 
     PImage logo, logoPantalles;
+    PShape house;
     //Botons
-    public static Botons b1, b2, b3, b4;
+    public static Botons b1, b2, b3, b4, b5;
 
     //Enumerat de les pantalles de l'app
     public enum PANTALLA {LOGIN, INICIAL, SETTINGS, CREACIONCLUB, JUGADAS, PLANNING};
@@ -29,6 +28,7 @@ public class GUI{
 
         logo = p5.loadImage("LogoApp.png");
         logoPantalles = p5.loadImage("Logo.png");
+        house = p5.loadShape("house-solid-full.svg");
         pFont1 = p5.createFont("Roboto-Black.ttf", 30);
         pantallaActual = PANTALLA.LOGIN;
         paleta = new Paleta(p5);
@@ -36,7 +36,8 @@ public class GUI{
         b1 = new Botons(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new Botons(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
         b3 = new Botons(p5,"LOGIN", p5.width/2-250, p5.height/2+350, 500,75);
-        b4 = new Botons(logoPantalles, p5.width/2,p5.height/2, 200,200);
+        b4 = new Botons(p5,house, marginH+25,2*marginV+150, 50,50);
+        b5 = new Botons(p5,house, marginH+25,2*marginV+250, 50,50);
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
     }
     //Pantalles GUI
