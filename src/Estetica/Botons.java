@@ -4,6 +4,8 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PShape;
 
+import static jdk.internal.org.jline.terminal.MouseEvent.Type.Pressed;
+
 public class Botons {
     // Propietats d'un botó:
 
@@ -12,7 +14,9 @@ public class Botons {
     int fillColor, strokeColor; // Colors del boto (fill / stroke).
     int fillColorOver, fillColorDisabled;  // Colors del boto (actiu / inactiu).
     String textBoto;  // Text
-    public boolean enabled;  // Estat del botó (actiu / inactiu).
+    public boolean enabled;// Estat del botó (actiu / inactiu).
+    public boolean selected = false;
+    public boolean img = false;
     Paleta paleta;
     // Constructor
     public Botons(PApplet p5, String text, float x, float y, float w, float h){
@@ -36,7 +40,8 @@ public class Botons {
         this.w = w;
         this.h = h;
         this.textBoto = "";
-        this.fillColorDisabled = p5.color(100);
+        this.enabled = true;
+        this.img = true;
         this.fillColor = paleta.getColorAt(1);
         this.fillColorOver = paleta.getColorAt(5);
 

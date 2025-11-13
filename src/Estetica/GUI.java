@@ -11,33 +11,38 @@ public class GUI{
     static Paleta paleta;
 
     PImage logo, logoPantalles;
-    PShape house;
+    PShape house, fieldicon;
     //Botons
-    public static Botons b1, b2, b3, b4, b5;
+    public BotonsEstat b1, b2, b4, b5, b6, b7;
+    public Botons b3;
 
     //Enumerat de les pantalles de l'app
     public enum PANTALLA {LOGIN, INICIAL, SETTINGS, CREACIONCLUB, JUGADAS, PLANNING};
 
     //Pantalla actual
-    public static PANTALLA pantallaActual;
+    public PANTALLA pantallaActual;
 
     //Text Field
-    public static Text_Field text1;
+    public Text_Field text1;
 
     public GUI(PApplet p5){
 
         logo = p5.loadImage("LogoApp.png");
         logoPantalles = p5.loadImage("Logo.png");
         house = p5.loadShape("house-solid-full.svg");
+        fieldicon = p5.loadShape("football-field.svg");
         pFont1 = p5.createFont("Roboto-Black.ttf", 30);
         pantallaActual = PANTALLA.LOGIN;
         paleta = new Paleta(p5);
 
-        b1 = new Botons(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
-        b2 = new Botons(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
+        b1 = new BotonsEstat(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
+        b2 = new BotonsEstat(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
         b3 = new Botons(p5,"LOGIN", p5.width/2-250, p5.height/2+350, 500,75);
-        b4 = new Botons(p5,house, marginH+25,2*marginV+150, 50,50);
-        b5 = new Botons(p5,house, marginH+25,2*marginV+250, 50,50);
+        b4 = new BotonsEstat(p5,house, marginH+25,2*marginV+150, 50,50);
+        b5 = new BotonsEstat(p5,fieldicon, marginH+25,2*marginV+250, 50,50);
+        b6 = new BotonsEstat(p5,house, marginH+25,2*marginV+250, 50,50);
+        b7 = new BotonsEstat(p5,house, marginH+25,2*marginV+250, 50,50);
+
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
     }
     //Pantalles GUI
@@ -61,6 +66,7 @@ public class GUI{
         logoPantallas(p5, logoPantalles);
         sideBar(p5);
         b4.display(p5);
+        b5.display(p5);
     }
 
     //Zones de la GUI
