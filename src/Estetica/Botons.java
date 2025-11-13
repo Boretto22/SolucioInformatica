@@ -25,7 +25,6 @@ public class Botons {
         this.enabled = true;
         this.fillColor = paleta.getColorAt(2);
         this.fillColorOver = paleta.getColorAt(1);
-        this.fillColorDisabled = p5.color(100);
         this.strokeColor = p5.color(0);
     }
 
@@ -37,7 +36,8 @@ public class Botons {
         this.w = w;
         this.h = h;
         this.textBoto = "";
-        this.fillColor = paleta.getColorAt(2);
+        this.fillColorDisabled = p5.color(100);
+        this.fillColor = paleta.getColorAt(1);
         this.fillColorOver = paleta.getColorAt(5);
 
     }
@@ -79,7 +79,9 @@ public class Botons {
             p5.fill(fillColor);          // Color actiu però ratolí fora
         }
         p5.stroke(strokeColor); p5.strokeWeight(2);        //Color i gruixa del contorn
-        p5.fill(255);
+        this.fillColor = paleta.getColorAt(2);
+        this.fillColorOver = paleta.getColorAt(1);
+        this.strokeColor = p5.color(0);
         p5.rect(this.x, this.y, this.w, this.h, 10);    // Rectangle del botó
 
         // Text (color, alineació i mida)
@@ -90,6 +92,8 @@ public class Botons {
             p5.text(textBoto, this.x + this.w / 2, this.y + this.h / 2 + 15);
         }
         else {
+            this.fillColor = paleta.getColorAt(2);
+            this.fillColorOver = paleta.getColorAt(1);
             p5.shapeMode(p5.CENTER);
             p5.shape(shape, this.x + this.w / 2, this.y + this.h / 2, this.w, this.h);
         }

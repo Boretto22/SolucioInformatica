@@ -26,7 +26,7 @@ public class    PlayCoach extends PApplet {
 
     public void draw(){
         // Dibuixa el fons (blanc)
-
+        updateHandCursor();
         background(255);
 
         textFont(appTipografia.getFirstTipografia());
@@ -69,7 +69,14 @@ public class    PlayCoach extends PApplet {
         GUI.text1.keyPressed(key, keyCode);
 
     }
-
+    public void updateHandCursor(){
+        if(GUI.b1.updateHandCursor(this) || GUI.b2.updateHandCursor(this)|| GUI.b3.updateHandCursor(this) || GUI.b4.updateHandCursor(this)){
+            cursor(HAND);
+        }
+        else {
+            cursor(ARROW);
+        }
+    }
     public void mousePressed() {
         if (GUI.b1.mouseOverButton(this)) {
             println("B1 has been pressed!!");

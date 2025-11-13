@@ -77,6 +77,7 @@ public class GUI{
 
 
     public static void sideBar(PApplet p5){
+        p5.noStroke();
         p5.fill (paleta.getColorAt(4));
         p5.rect(marginH, 2*marginV + 100, sidebarWidth, sidebarHeight, 20);
     }
