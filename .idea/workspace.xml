@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8923a238-6649-4ad7-82aa-17c3b9a5060a" name="Changes" comment=".">
+      <change afterPath="$PROJECT_DIR$/Data/calendar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/football.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Botons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Botons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/BotonsEstat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/BotonsEstat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Estetica/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Paleta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Paleta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +236,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763036298563</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary=".">
+      <option name="closed" value="true" />
+      <created>1763489260839</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1763489260839</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

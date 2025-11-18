@@ -11,9 +11,9 @@ public class GUI{
     static Paleta paleta;
 
     PImage logo, logoPantalles;
-    PShape house, fieldicon;
+    PShape house, fieldicon, football, calendar, alert;
     //Botons
-    public BotonsEstat b1, b2, b4, b5, b6, b7;
+    public BotonsEstat b1, b2, b4, b5, b6, b7, b8;
     public Botons b3;
 
     //Enumerat de les pantalles de l'app
@@ -31,6 +31,9 @@ public class GUI{
         logoPantalles = p5.loadImage("Logo.png");
         house = p5.loadShape("house-solid-full.svg");
         fieldicon = p5.loadShape("football-field.svg");
+        football = p5.loadShape("football.svg");
+        calendar = p5.loadShape("calendar.svg");
+        alert = p5.loadShape("alert.svg");
         pFont1 = p5.createFont("Roboto-Black.ttf", 30);
         pantallaActual = PANTALLA.LOGIN;
         paleta = new Paleta(p5);
@@ -40,8 +43,9 @@ public class GUI{
         b3 = new Botons(p5,"LOGIN", p5.width/2-250, p5.height/2+350, 500,75);
         b4 = new BotonsEstat(p5,house, marginH+25,2*marginV+150, 50,50);
         b5 = new BotonsEstat(p5,fieldicon, marginH+25,2*marginV+250, 50,50);
-        b6 = new BotonsEstat(p5,house, marginH+25,2*marginV+250, 50,50);
-        b7 = new BotonsEstat(p5,house, marginH+25,2*marginV+250, 50,50);
+        b6 = new BotonsEstat(p5,football, marginH+25,2*marginV+350, 50,50);
+        b7 = new BotonsEstat(p5,calendar, marginH+25,2*marginV+450, 50,50);
+        b8 = new BotonsEstat(p5,alert, marginH+25,2*marginV+550, 50,50);
 
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
     }
@@ -67,6 +71,9 @@ public class GUI{
         sideBar(p5);
         b4.display(p5);
         b5.display(p5);
+        b6.display(p5);
+        b7.display(p5);
+        b8.display(p5);
     }
 
     //Zones de la GUI
