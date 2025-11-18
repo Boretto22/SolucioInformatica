@@ -23,14 +23,14 @@ public class BotonsEstat extends Botons{
     public void display(PApplet p5){
         p5.pushStyle();
         if(this.selected){
-            if(img = false) {
-                p5.fill(fillColorOver);
-            } else { p5.fill(paleta.getColorAt(6));}
+            if (esImg == false) {
+                p5.fill(paleta.getColorAt(1));
+            }else{ p5.fill(paleta.getColorAt(7));}
         }
         else{
-            if(img = false) {
-                p5.fill(fillColorOver);
-            } else { p5.fill(paleta.getColorAt(7));}
+            if(esImg == false) {
+                p5.fill(paleta.getColorAt(2));
+            }else{ p5.fill(paleta.getColorAt(6));}
         }
         p5.stroke(strokeColor); p5.strokeWeight(2);        //Color i gruixa del contorn
         this.fillColor = paleta.getColorAt(2);

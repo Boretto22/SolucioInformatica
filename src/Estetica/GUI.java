@@ -73,12 +73,12 @@ public class GUI{
 
     public void logoLogIn(PApplet p5, PImage logo) {
         p5.imageMode(PConstants.CENTER);
-        p5.image(logo, p5.width/2, p5.height/2 - 250, logoWidth/2+450, logoHeight/2+450);
+        p5.image(logo, p5.width/2, p5.height/2 - 265, logoWidth/2+450, logoHeight/2+450);
     }
 
     public void logoPantallas(PApplet p5, PImage logoPantalles) {
         p5.imageMode(PConstants.CENTER);
-        p5.image(logoPantalles, p5.width/2-900, p5.height/2-475, logoPantallesWidth/2, logoPantallesHeight/2);
+        p5.image(logoPantalles, p5.width/2-900, p5.height/2-465, logoPantallesWidth/2, logoPantallesHeight/2);
     }
 
 

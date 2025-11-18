@@ -16,7 +16,7 @@ public class Botons {
     String textBoto;  // Text
     public boolean enabled;// Estat del botó (actiu / inactiu).
     public boolean selected = false;
-    public boolean img = false;
+    public boolean esImg;
     Paleta paleta;
     // Constructor
     public Botons(PApplet p5, String text, float x, float y, float w, float h){
@@ -30,6 +30,7 @@ public class Botons {
         this.fillColor = paleta.getColorAt(2);
         this.fillColorOver = paleta.getColorAt(1);
         this.strokeColor = p5.color(0);
+        this.esImg = false;
     }
 
     public Botons(PApplet p5,PShape shape, float x, float y, float w, float h) {
@@ -41,13 +42,15 @@ public class Botons {
         this.h = h;
         this.textBoto = "";
         this.enabled = true;
-        this.img = true;
+        this.esImg = true;
         this.fillColor = paleta.getColorAt(1);
         this.fillColorOver = paleta.getColorAt(5);
 
     }
 
     // Setters
+
+    public void esImg(boolean esImg){ this.selected = esImg; }
 
     public void setEnabled(boolean b){
         this.enabled = b;
