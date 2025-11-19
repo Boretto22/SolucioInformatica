@@ -17,6 +17,8 @@ public class Medida {
 
     public static float logoPantallesWidth = 300, logoPantallesHeight = 300;
 
+    // Dimensions camp de futbol
+    public static float footballFieldWidth = 500, footballFielsHeight = 500;
     // Dimensions Banner
     public static float bannerWidth  = 1560, bannerHeight = 300;
 

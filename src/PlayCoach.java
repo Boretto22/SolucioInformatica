@@ -53,6 +53,10 @@ public class    PlayCoach extends PApplet {
             case CALENDAR:
                 appGUI.dibujoPantallaCalendar(this);
                 break;
+
+            case JUGADAS:
+                appGUI.dibujoPantallaJugadas(this);
+                break;
         }
 
         // Mostra la paleta de colors
@@ -101,6 +105,7 @@ public class    PlayCoach extends PApplet {
         }
         if (appGUI.b5.mouseOverButton(this)) {
             println("B5 has been pressed!!");
+            appGUI.pantallaActual = GUI.PANTALLA.JUGADAS;
             appGUI.b5.toggleSelected();
         }
         if (appGUI.b6.mouseOverButton(this)) {

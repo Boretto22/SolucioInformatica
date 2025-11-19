@@ -10,14 +10,14 @@ public class GUI{
 
     static Paleta paleta;
 
-    PImage logo, logoPantalles;
+    PImage logo, logoPantalles, footballfield;
     PShape house, fieldicon, football, calendar, alert;
     //Botons
     public BotonsEstat b1, b2, b4, b5, b6, b7, b8;
     public Botons b3;
 
     //Enumerat de les pantalles de l'app
-    public enum PANTALLA {LOGIN, INICIAL, CALENDAR, CREACIONCLUB, JUGADAS, PLANNING};
+    public enum PANTALLA {LOGIN, INICIAL, CALENDAR, JUGADAS, PLANNING};
 
     //Pantalla actual
     public PANTALLA pantallaActual;
@@ -37,6 +37,7 @@ public class GUI{
         pFont1 = p5.createFont("Roboto-Black.ttf", 30);
         pantallaActual = PANTALLA.LOGIN;
         paleta = new Paleta(p5);
+        footballfield = p5.loadImage("Football_fiels.png");
 
         b1 = new BotonsEstat(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new BotonsEstat(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
@@ -88,6 +89,19 @@ public class GUI{
 
     }
 
+    public void dibujoPantallaJugadas(PApplet p5){
+        p5.background(paleta.getColorAt(0));
+        logoPantallas(p5, logoPantalles);
+        sideBar(p5);
+        b4.display(p5);
+        b5.display(p5);
+        b6.display(p5);
+        b7.display(p5);
+        b8.display(p5);
+
+
+    }
+
     //Zones de la GUI
 
     public void logoLogIn(PApplet p5, PImage logo) {
@@ -98,6 +112,11 @@ public class GUI{
     public void logoPantallas(PApplet p5, PImage logoPantalles) {
         p5.imageMode(PConstants.CENTER);
         p5.image(logoPantalles, p5.width/2-900, p5.height/2-465, logoPantallesWidth/2, logoPantallesHeight/2);
+    }
+
+    public void footballField(PApplet p5, PImage footballfield){
+        p5.imageMode(PConstants.CENTER);
+        p5.image(footballfield, p5.width/2, p5.height/2, footballFieldWidth, footballFielsHeight);
     }
 
 
