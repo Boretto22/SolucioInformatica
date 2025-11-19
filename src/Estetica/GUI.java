@@ -17,7 +17,7 @@ public class GUI{
     public Botons b3;
 
     //Enumerat de les pantalles de l'app
-    public enum PANTALLA {LOGIN, INICIAL, SETTINGS, CREACIONCLUB, JUGADAS, PLANNING};
+    public enum PANTALLA {LOGIN, INICIAL, CALENDAR, CREACIONCLUB, JUGADAS, PLANNING};
 
     //Pantalla actual
     public PANTALLA pantallaActual;
@@ -41,11 +41,11 @@ public class GUI{
         b1 = new BotonsEstat(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new BotonsEstat(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
         b3 = new Botons(p5,"LOGIN", p5.width/2-250, p5.height/2+350, 500,75);
-        b4 = new BotonsEstat(p5,house, marginH+25,2*marginV+150, 50,50);
-        b5 = new BotonsEstat(p5,fieldicon, marginH+25,2*marginV+250, 50,50);
-        b6 = new BotonsEstat(p5,football, marginH+25,2*marginV+350, 50,50);
-        b7 = new BotonsEstat(p5,calendar, marginH+25,2*marginV+450, 50,50);
-        b8 = new BotonsEstat(p5,alert, marginH+25,2*marginV+550, 50,50);
+        b4 = new BotonsEstat(p5,house, marginH+25,2*marginV+150, 65,65);
+        b5 = new BotonsEstat(p5,fieldicon, marginH+25,2*marginV+250, 65,65);
+        b6 = new BotonsEstat(p5,football, marginH+25,2*marginV+350, 65,65);
+        b7 = new BotonsEstat(p5,calendar, marginH+25,2*marginV+450, 65,65);
+        b8 = new BotonsEstat(p5,alert, marginH+25,2*marginV+550, 65,65);
 
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
     }
@@ -74,6 +74,18 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
+    }
+
+    public void dibujoPantallaCalendar(PApplet p5){
+        p5.background(paleta.getColorAt(0));
+        logoPantallas(p5, logoPantalles);
+        sideBar(p5);
+        b4.display(p5);
+        b5.display(p5);
+        b6.display(p5);
+        b7.display(p5);
+        b8.display(p5);
+
     }
 
     //Zones de la GUI
