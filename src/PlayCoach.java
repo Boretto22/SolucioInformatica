@@ -1,4 +1,5 @@
 import Estetica.GUI;
+import Estetica.PagedTable;
 import Estetica.Tipografia;
 import processing.core.PApplet;
 
@@ -10,6 +11,7 @@ public class    PlayCoach extends PApplet {
 
     Tipografia appTipografia;
     GUI appGUI;
+    PagedTable appPagedTable;
 
 
     public static void main(String[] args) {
@@ -22,6 +24,7 @@ public class    PlayCoach extends PApplet {
     public void setup(){
         appTipografia = new Tipografia(this);
         appGUI = new GUI(this);
+        appPagedTable = new PagedTable(7,5);
     }
 
     public void draw(){
@@ -57,6 +60,10 @@ public class    PlayCoach extends PApplet {
             case JUGADAS:
                 appGUI.dibujoPantallaJugadas(this);
                 break;
+
+            case ENTRENAMIENTO:
+                appGUI.dibujoPantallEntrenamientos(this);
+                break;
         }
 
         // Mostra la paleta de colors
@@ -75,6 +82,12 @@ public class    PlayCoach extends PApplet {
             appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
         }
         appGUI.text1.keyPressed(key, keyCode);
+        if(keyCode==LEFT){
+            appPagedTable.prevPage();
+        }
+        else if(keyCode==RIGHT){
+            appPagedTable.nextPage();
+        }
 
     }
     public void updateHandCursor(){
@@ -111,6 +124,7 @@ public class    PlayCoach extends PApplet {
         if (appGUI.b6.mouseOverButton(this)) {
             println("B6 has been pressed!!");
             appGUI.b6.toggleSelected();
+            appGUI.pantallaActual = GUI.PANTALLA.ENTRENAMIENTO;
 
         }
         if (appGUI.b7.mouseOverButton(this)) {
@@ -121,6 +135,12 @@ public class    PlayCoach extends PApplet {
         if (appGUI.b8.mouseOverButton(this)) {
             println("B8 has been pressed!!");
             appGUI.b8.toggleSelected();
+        }
+        if(appGUI.btable1.mouseOverButton(this) && appGUI.btable1.isEnabled()){
+            appPagedTable.nextPage();
+        }
+        else if(appGUI.btable2.mouseOverButton(this) && appGUI.btable2.isEnabled()){
+                appPagedTable.prevPage();
         }
 
         appGUI.text1.isPressed(this);

@@ -4,45 +4,57 @@ import processing.core.PApplet;
 
 public class DayButtons {
 
-    public class DayButton {
-        PApplet p5;
-        float x, y, w, h;
-        int dia, mes, any;
-        boolean enabled;
-        boolean selected = false;
+    // Dimensions del botó
+    float x, y, w, h;
 
-        public DayButton(PApplet p5, float x, float y, float w, float h, int dia, int mes, int any, boolean enabled) {
-            this.p5 = p5;
-            this.x = x;
-            this.y = y;
-            this.w = w;
-            this.h = h;
-            this.dia = dia;
-            this.mes = mes;
-            this.any = any;
-            this.enabled = enabled;
+    // Data representativa
+    int dia, mes, any;
+
+    // Estats del botó
+    boolean selected, enabled;
+
+    // Constructor
+    public DayButtons(float x, float y, float w, float h, int d, int m, int a){
+        this.x = x; this.y=y; this.w = w; this.h = h;
+        this.dia = d; this.mes = m; this.any = a;
+        this.selected = false;
+        this.enabled = true;
+    }
+
+    // Setters
+
+    public void setEnabled(boolean b){
+        this.enabled = b;
+    }
+
+    public void setSelected(boolean b){
+        this.selected = b;
+    }
+
+
+    // Dibuixa el botó
+    public void display(PApplet p5){
+        p5.pushStyle();
+        if(enabled){
+            p5.fill(255);
         }
-
-        public void display() {
-            p5.pushStyle();
-            if (selected) p5.fill(100, 150, 255);
-            else if (enabled) p5.fill(200);
-            else p5.fill(240);
-
-            p5.stroke(0);
-            p5.rect(x, y, w, h);
-
-            p5.fill(0);
-            p5.textAlign(p5.CENTER, p5.CENTER);
-            p5.text(dia, x + w / 2, y + h / 2);
-            p5.popStyle();
+        else{
+            p5.fill(100);
         }
-
-        public boolean isMouseOver() {
-            return p5.mouseX >= x && p5.mouseX <= x + w && p5.mouseY >= y && p5.mouseY <= y + h;
+        p5.stroke(0); p5.strokeWeight(1);
+        p5.rect(x, y, w, h, 5);
+        if(selected){
+            p5.fill(200, 100, 100); p5.noStroke();
+            p5.ellipse(x + w/2, y+h/2, 80, 80);
         }
+        p5.fill(0); p5.textSize(24); p5.textAlign(p5.CENTER);
+        p5.text(dia, x + w/2, y + h/2 + 10);
+        p5.popStyle();
+    }
 
-        public boolean isEnabled() { return enabled; }
-        public void setSelected(boolean s) { this.selected = s; }
+    // Ratolí sobre el botó
+    public boolean mouseOver(PApplet p5){
+        return p5.mouseX>=this.x && p5.mouseX<=this.x+this.w &&
+                p5.mouseY>=this.y && p5.mouseY<=this.y+this.h;
     }
 }
