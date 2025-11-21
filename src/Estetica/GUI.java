@@ -32,7 +32,7 @@ public class GUI{
     PagedTable t;
 
     // Dimensions de la taula
-    float tableW = 800, tableH = 300;
+    float tableW = 1400, tableH = 600;
 
     // Número de files (capçalera inclosa) i columnes de la taula
     int files = 5, columnes = 5;
@@ -53,6 +53,10 @@ public class GUI{
             {"Definición", "-", "-", "Definición", "Definición"},
     };
 
+    //CalendariPlus
+    CalendariPlus c;
+    public String dataCalendari = "";
+
     public GUI(PApplet p5){
 
         logo = p5.loadImage("LogoApp.png");
@@ -71,8 +75,13 @@ public class GUI{
         t.setHeaders(headers);
         t.setData(info);
         t.setColumnWidths(colWidths);
-        btable1 = new Botons(p5, "NEXT", p5.width/2+50, p5.height/2+50, buttonW, buttonH);
-        btable2 = new Botons(p5, "PREV", p5.width/2+100, p5.height/2+50, buttonW, buttonH);
+        btable1 = new Botons(p5, "NEXT", p5.width/2+750, p5.height/2+300, buttonW, buttonH);
+        btable2 = new Botons(p5, "PREV", p5.width/2+650, p5.height/2+300, buttonW, buttonH);
+
+        // Crea el Calendari
+        c = new CalendariPlus(p5,50,200,700,550);
+
+
 
         b1 = new BotonsEstat(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new BotonsEstat(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
@@ -121,7 +130,8 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
-        footballField(p5, footballfield);
+        c.display(p5);
+        p5.text(dataCalendari, 190, 45);
     }
 
     public void dibujoPantallaJugadas(PApplet p5){
@@ -145,7 +155,7 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
-        t.display(p5, p5.width/2+50, p5.height/2+50, tableW, tableH);
+        t.display(p5, p5.width/2-550, p5.height/2-275, tableW, tableH);
         btable1.display(p5);
         btable2.display(p5);
     }

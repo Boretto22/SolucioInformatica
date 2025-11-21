@@ -1,6 +1,4 @@
-import Estetica.GUI;
-import Estetica.PagedTable;
-import Estetica.Tipografia;
+import Estetica.*;
 import processing.core.PApplet;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
@@ -12,6 +10,8 @@ public class    PlayCoach extends PApplet {
     Tipografia appTipografia;
     GUI appGUI;
     PagedTable appPagedTable;
+    CalendariPlus appCalendariPlus;
+    Calendari appCalendari;
 
 
     public static void main(String[] args) {
@@ -25,6 +25,7 @@ public class    PlayCoach extends PApplet {
         appTipografia = new Tipografia(this);
         appGUI = new GUI(this);
         appPagedTable = new PagedTable(7,5);
+        appCalendariPlus = new CalendariPlus(this,50,200,700,550);
     }
 
     public void draw(){
@@ -144,6 +145,18 @@ public class    PlayCoach extends PApplet {
         }
 
         appGUI.text1.isPressed(this);
+
+        // Comprovar si clicam sobre botons del Calendari
+        appCalendariPlus.checkButtons(this);
+
+        // Si pitjam el botó de Next, canviarà al seguent mes
+        if(appCalendariPlus.bNext.mouseOverButton(this)){
+            appCalendariPlus.nextMonth();
+        }
+        // Si pitjam el botó de Prev, canviarà al mes anterior
+        if(appCalendariPlus.bPrev.mouseOverButton(this)){
+            appCalendariPlus.prevMonth();
+        }
     }
 
 

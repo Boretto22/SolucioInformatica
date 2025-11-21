@@ -9,7 +9,7 @@ public class CalendariPlus extends Calendari {
     public Botons bNext, bPrev, bOK;
 
     // Visibilitat del calendari
-    boolean visible = false;
+    boolean visible = true;
 
     // Constructor
     public CalendariPlus(PApplet p5, int x, int y, int w, int h) {
@@ -19,17 +19,6 @@ public class CalendariPlus extends Calendari {
         bNext = new Botons(p5, "Seguent", x+ w/3, y -70, 100, 50);
         bPrev = new Botons(p5, "Anterior", x+w/3+100, y - 70, 100, 50);
         bOK   = new Botons(p5, "OK", x+w/3+200, y - 70, 50, 50);
-    }
-
-
-    // Setters
-
-    public void toggleVisibility(){
-        this.visible = !this.visible;
-    }
-
-    public void setVisible(boolean b){
-        this.visible = b;
     }
 
     // Dibuixa el Calendari
