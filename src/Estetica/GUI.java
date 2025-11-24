@@ -1,5 +1,6 @@
 package Estetica;
 import static Estetica.Medida.*;
+import static processing.core.PConstants.HALF_PI;
 
 import processing.core.*;
 import Estetica.Text_Field;
@@ -26,7 +27,7 @@ public class GUI{
     public Text_Field text1;
 
     //Dimensions botons
-    float buttonW = 60, buttonH = 60;
+    float buttonW = 120, buttonH = 60;
 
     //Taula paginada
     PagedTable t;
@@ -41,7 +42,7 @@ public class GUI{
     String[] headers = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
 
     // Amplades de les columnes
-    float[] colWidths = {10, 20, 40, 10, 20};
+    float[] colWidths = {20, 20, 20, 20, 20};
 
     // Dades de la taula
     String[][] info = {
@@ -75,11 +76,11 @@ public class GUI{
         t.setHeaders(headers);
         t.setData(info);
         t.setColumnWidths(colWidths);
-        btable1 = new Botons(p5, "NEXT", p5.width/2+750, p5.height/2+300, buttonW, buttonH);
-        btable2 = new Botons(p5, "PREV", p5.width/2+650, p5.height/2+300, buttonW, buttonH);
+        btable1 = new Botons(p5, "NEXT", p5.width/2+725, p5.height/2+340, buttonW, buttonH);
+        btable2 = new Botons(p5, "PREV", p5.width/2+555, p5.height/2+340, buttonW, buttonH);
 
         // Crea el Calendari
-        c = new CalendariPlus(p5,50,200,700,550);
+        c = new CalendariPlus(p5,p5.width/2-550,p5.height/2-275,1400,800);
 
 
 
@@ -104,9 +105,10 @@ public class GUI{
         b3.display(p5);
         text1.display(p5);
         p5.pushMatrix();
+        p5.fill(0);
         p5.textFont(pFont1);
-        p5.popMatrix();
         p5.text("USERNAME", p5.width/2-200, p5.height/2+180);
+        p5.popMatrix();
 
     }
 
@@ -158,6 +160,12 @@ public class GUI{
         t.display(p5, p5.width/2-550, p5.height/2-275, tableW, tableH);
         btable1.display(p5);
         btable2.display(p5);
+        p5.textFont(pFont1);
+        p5.pushMatrix();
+        p5.fill(0);
+        p5.textSize(75);
+        p5.text("ENTRENAMIENTOS DEL MES", p5.width/2-300, p5.height/2-365);
+        p5.popMatrix();
     }
 
     //Zones de la GUI
@@ -169,12 +177,15 @@ public class GUI{
 
     public void logoPantallas(PApplet p5, PImage logoPantalles) {
         p5.imageMode(PConstants.CENTER);
-        p5.image(logoPantalles, p5.width/2-900, p5.height/2-465, logoPantallesWidth/2, logoPantallesHeight/2);
+        p5.image(logoPantalles, p5.width/2-900, p5.height/2-465, logoPantallesWidth/2+50, logoPantallesHeight/2+50);
     }
 
     public void footballField(PApplet p5, PImage footballfield){
         p5.imageMode(PConstants.CENTER);
-        p5.image(footballfield, p5.width/2, p5.height/2, footballFieldWidth, footballFielsHeight);
+        p5.pushMatrix();
+        //p5.rotate(HALF_PI);
+        p5.image(footballfield, p5.width/2, p5.height/2, footballFieldWidth, footballFielsHeight+300);
+        p5.popMatrix();
     }
 
 

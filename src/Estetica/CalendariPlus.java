@@ -16,9 +16,9 @@ public class CalendariPlus extends Calendari {
 
         super(x, y, w, h);
 
-        bNext = new Botons(p5, "Seguent", x+ w/3, y -70, 100, 50);
-        bPrev = new Botons(p5, "Anterior", x+w/3+100, y - 70, 100, 50);
-        bOK   = new Botons(p5, "OK", x+w/3+200, y - 70, 50, 50);
+        bNext = new Botons(p5, "Seguent", x+ w/3+115, y -70, 100, 50);
+        bPrev = new Botons(p5, "Anterior", x+w/3+255, y - 70, 100, 50);
+        //bOK   = new Botons(p5, "OK", x+w/3+200, y - 70, 50, 50);
     }
 
     // Dibuixa el Calendari
@@ -42,7 +42,7 @@ public class CalendariPlus extends Calendari {
             // Dibuixa els botons
             bNext.display(p5);
             bPrev.display(p5);
-            bOK.display(p5);
+            //bOK.display(p5);
             p5.popStyle();
         }
 
