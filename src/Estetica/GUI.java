@@ -1,9 +1,8 @@
 package Estetica;
 import static Estetica.Medida.*;
-import static processing.core.PConstants.HALF_PI;
+import static java.lang.Math.PI;
 
 import processing.core.*;
-import Estetica.Text_Field;
 
 public class GUI{
 
@@ -15,7 +14,7 @@ public class GUI{
     PShape house, fieldicon, football, calendar, alert;
     //Botons
     public BotonsEstat b1, b2, b4, b5, b6, b7, b8;
-    public Botons b3, btable1, btable2;
+    public Botons blogin, btable1, btable2, bsignup;
 
     //Enumerat de les pantalles de l'app
     public enum PANTALLA {LOGIN, INICIAL, CALENDAR, JUGADAS, ENTRENAMIENTO};
@@ -86,7 +85,8 @@ public class GUI{
 
         b1 = new BotonsEstat(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new BotonsEstat(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
-        b3 = new Botons(p5,"LOGIN", p5.width/2-250, p5.height/2+350, 500,75);
+        blogin = new Botons(p5,"LOG IN", p5.width/2-450, p5.height/2+350, 400,75);
+        bsignup = new Botons(p5,"SIGN UP", p5.width/2+50, p5.height/2+350, 400,75);
         b4 = new BotonsEstat(p5,house, marginH+25,2*marginV+150, 65,65);
         b5 = new BotonsEstat(p5,fieldicon, marginH+25,2*marginV+250, 65,65);
         b6 = new BotonsEstat(p5,football, marginH+25,2*marginV+350, 65,65);
@@ -102,7 +102,8 @@ public class GUI{
         logoLogIn(p5, logo);
         b1.display(p5);
         b2.display(p5);
-        b3.display(p5);
+        blogin.display(p5);
+        bsignup.display(p5);
         text1.display(p5);
         p5.pushMatrix();
         p5.fill(0);
@@ -139,7 +140,10 @@ public class GUI{
     public void dibujoPantallaJugadas(PApplet p5){
         p5.background(paleta.getColorAt(0));
         logoPantallas(p5, logoPantalles);
+        p5.pushMatrix();
+        //p5.rotate(PConstants.HALF_PI);
         footballField(p5, footballfield);
+        p5.popMatrix();
         sideBar(p5);
         b4.display(p5);
         b5.display(p5);

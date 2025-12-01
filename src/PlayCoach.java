@@ -1,9 +1,6 @@
 import Estetica.*;
 import processing.core.PApplet;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
-import java.security.Key;
-
 public class    PlayCoach extends PApplet {
 
 
@@ -92,7 +89,7 @@ public class    PlayCoach extends PApplet {
 
     }
     public void updateHandCursor(){
-        if(appGUI.b1.updateHandCursor(this) || appGUI.b2.updateHandCursor(this)|| appGUI.b3.updateHandCursor(this) ||
+        if(appGUI.b1.updateHandCursor(this) || appGUI.b2.updateHandCursor(this)|| appGUI.blogin.updateHandCursor(this) ||
                 appGUI.b4.updateHandCursor(this) || appGUI.b5.updateHandCursor(this) || appGUI.b6.updateHandCursor(this) || appGUI.b7.updateHandCursor(this)){
             cursor(HAND);
         }
@@ -109,8 +106,12 @@ public class    PlayCoach extends PApplet {
             println("B2 has been pressed!!");
             appGUI.b2.toggleSelected();
         }
-        if (appGUI.b3.mouseOverButton(this)) {
-            println("B3 has been pressed!!");
+        if (appGUI.blogin.mouseOverButton(this)) {
+            println("BLogIn has been pressed!!");
+            appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
+        }
+        if (appGUI.bsignup.mouseOverButton(this)) {
+            println("BSignUp has been pressed!!");
             appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
         }
         if (appGUI.b4.mouseOverButton(this)) {
