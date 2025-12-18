@@ -13,11 +13,14 @@ public class PagedTable {
     int numPage;
     int numTotalPages;
 
+    Paleta paleta;
+
     // Constructor
-    public PagedTable(int nr, int nc){
+    public PagedTable(PApplet p5, int nr, int nc){
         this.numRows = nr;
         this.numCols = nc;
         this.numPage = 0;
+        paleta = new Paleta(p5);
     }
 
     // Setters
@@ -65,7 +68,7 @@ public class PagedTable {
         p5.rect(x, y, w, h);
 
         float rowHeight = h / numRows;
-        p5.fill(200, 100, 100); p5.stroke(0); p5.strokeWeight(3);
+        p5.fill(paleta.getColorAt(2)); p5.stroke(0); p5.strokeWeight(3);
         p5.rect(x, y, w, rowHeight);
 
         // Dibuixa files

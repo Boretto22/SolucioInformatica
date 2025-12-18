@@ -1,6 +1,8 @@
 import Estetica.*;
 import processing.core.PApplet;
 
+import java.io.File;
+
 public class    PlayCoach extends PApplet {
 
 
@@ -21,7 +23,7 @@ public class    PlayCoach extends PApplet {
     public void setup(){
         appTipografia = new Tipografia(this);
         appGUI = new GUI(this);
-        appPagedTable = new PagedTable(7,5);
+        appPagedTable = new PagedTable(this,7,5);
         appCalendariPlus = new CalendariPlus(this,50,200,700,550);
     }
 
@@ -157,6 +159,26 @@ public class    PlayCoach extends PApplet {
         // Si pitjam el botó de Prev, canviarà al mes anterior
         if(appCalendariPlus.bPrev.mouseOverButton(this)){
             appCalendariPlus.prevMonth();
+        }
+
+        if(appGUI.bLoadImg.mouseOverButton(this)){
+            // Obrim el dialeg
+            selectInput("Selecciona una imatge ...", "fileSelected");
+        }
+    }
+
+
+    // Carrega Imatge
+    public void fileSelected(File selection) {
+        if (selection == null) {
+            println("No s'ha seleccionat cap fitxer.");
+        } else {
+
+            // Obtenim la ruta del fitxer seleccionat
+            String rutaImatge = selection.getAbsolutePath();
+
+            appGUI.loadImage = loadImage(rutaImatge);  // Actualitzam imatge
+            appGUI.titol = selection.getName();  // Actualitzam títol
         }
     }
 

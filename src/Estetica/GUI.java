@@ -10,11 +10,14 @@ public class GUI{
 
     static Paleta paleta;
 
-    PImage logo, logoPantalles, footballfield;
+
+    public String titol;
+    public PImage logo, logoPantalles, footballfield, loadImage;
     PShape house, fieldicon, football, calendar, alert;
     //Botons
     public BotonsEstat b1, b2, b4, b5, b6, b7, b8;
     public Botons blogin, btable1, btable2, bsignup;
+    public Botons bLoadImg;
 
     //Enumerat de les pantalles de l'app
     public enum PANTALLA {LOGIN, INICIAL, CALENDAR, JUGADAS, ENTRENAMIENTO};
@@ -71,7 +74,7 @@ public class GUI{
         paleta = new Paleta(p5);
         footballfield = p5.loadImage("Football_field.png");
 
-        t = new PagedTable(files, columnes);
+        t = new PagedTable(p5, files, columnes);
         t.setHeaders(headers);
         t.setData(info);
         t.setColumnWidths(colWidths);
@@ -80,8 +83,6 @@ public class GUI{
 
         // Crea el Calendari
         c = new CalendariPlus(p5,p5.width/2-550,p5.height/2-275,1400,800);
-
-
 
         b1 = new BotonsEstat(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new BotonsEstat(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
@@ -92,6 +93,8 @@ public class GUI{
         b6 = new BotonsEstat(p5,football, marginH+25,2*marginV+350, 65,65);
         b7 = new BotonsEstat(p5,calendar, marginH+25,2*marginV+450, 65,65);
         b8 = new BotonsEstat(p5,alert, marginH+25,2*marginV+550, 65,65);
+
+        bLoadImg = new Botons(p5, "Load Image", 100, 100, 100, 40);
 
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
     }
@@ -122,6 +125,8 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
+        bLoadImg.display(p5);
+
     }
 
     public void dibujoPantallaCalendar(PApplet p5){

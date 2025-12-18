@@ -57,8 +57,11 @@ public class Botons {
     }
 
     public void setTextBoto(PApplet p5, String t){
+        p5.pushMatrix();
+        p5.fill(255);
         p5.textSize(30);
         this.textBoto = t;
+        p5.popMatrix();
     }
 
     public void setColors(int cFill, int cStroke, int cOver, int cDisabled){
