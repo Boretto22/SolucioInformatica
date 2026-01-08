@@ -4,20 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8923a238-6649-4ad7-82aa-17c3b9a5060a" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/Data/iconaMenys.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/iconaMes.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Estetica/Counter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Paleta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Paleta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Text_Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Text_Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayCoach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayCoach.java" afterDir="false" />
-    </list>
+    <list default="true" id="8923a238-6649-4ad7-82aa-17c3b9a5060a" name="Changes" comment="." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="4" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -320,7 +315,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767867931236</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary=".">
+      <option name="closed" value="true" />
+      <created>1767892066618</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1767892066618</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

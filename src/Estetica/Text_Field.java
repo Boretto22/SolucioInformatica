@@ -115,4 +115,9 @@ public class Text_Field {
         }
     }
 
+    // Setter del color de fons
+    public void setBackgroundColor(int c){
+        this.TextFieldColor = c;
+    }
+
 }

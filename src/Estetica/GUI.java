@@ -108,6 +108,7 @@ public class GUI{
 
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
         textAlert = new Text_Field(p5, p5.width/2-350, p5.height/2-350, 1000,800);
+        textAlert.setBackgroundColor(paleta.getColorAt(1));
     }
     //Pantalles GUI
 
