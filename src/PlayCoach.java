@@ -92,6 +92,7 @@ public class    PlayCoach extends PApplet {
             appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
         }
         appGUI.text1.keyPressed(key, keyCode);
+        appGUI.textAlert.keyPressed(key, keyCode);
         if(keyCode==LEFT){
             appPagedTable.prevPage();
         }
@@ -161,6 +162,7 @@ public class    PlayCoach extends PApplet {
         }
 
         appGUI.text1.isPressed(this);
+        appGUI.textAlert.isPressed(this);
 
         // Comprovar si clicam sobre botons del Calendari
         appCalendariPlus.checkButtons(this);

@@ -12,7 +12,7 @@ public class Paleta {
 
     // Estableix colors de l'App
     public void setColors(PApplet p5){
-        this.colors = new int[10];
+        this.colors = new int[20];
         this.colors[0] = p5.color(0xFFF8FAFC); //pantalla fondo
         this.colors[1] = p5.color(0xFFA9D600); //botons pressed
         this.colors[2] = p5.color(0xFFC9FF00); //botons
@@ -22,6 +22,8 @@ public class Paleta {
         this.colors[6] = p5.color(0xFFC9FF00); // botons sidebar
         this.colors[7] = p5.color(0xFFA9D600); // boto pressed sidebar
         this.colors[8] = p5.color(0xFF000000); //negre
+        this.colors[9] = p5.color(0xFFE05034); //vermell
+        this.colors[10] = p5.color(0xFFED7966); //vermell clar
 
     }
 

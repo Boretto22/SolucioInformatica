@@ -14,9 +14,12 @@ public class Text_Field {
     int TextFieldColor, textColor, selectedColor, borderColor;
     int borderWeight = 1;
     //Text del camp
+
     public String text = "";
     int textSize = 40;
     boolean selected = false;
+    int limit = 36;
+    boolean isMultiline = false;
     //Constructor
     //*constructor dels colors
     public Text_Field(PApplet p5, int x, int y, int w, int h) {
@@ -46,8 +49,15 @@ public class Text_Field {
         p5.rect(x, y, w, h, 5);
 
         p5.fill(textColor);
-        p5.textSize(textSize); p5.textAlign(p5.LEFT, p5.CENTER);
-        p5.text(text, x + 5, y + h - textSize);
+        p5.textSize(textSize);
+
+        if (isMultiline) {
+            p5.textAlign(p5.LEFT, p5.TOP);
+            p5.text(text, x + 5, y + 5, w - 10, h - 10);
+        } else {
+            p5.textAlign(p5.LEFT, p5.CENTER);
+            p5.text(text, x + 5, y + h - textSize);
+        }
         p5.popStyle();
     }
 
@@ -73,7 +83,7 @@ public class Text_Field {
 
     // Afegeix la lletra c al final del text
     public void addText(char c) {
-        if (this.text.length() < 36) {
+        if (this.text.length() < limit) {
             this.text += c;
         }
     }
@@ -118,6 +128,18 @@ public class Text_Field {
     // Setter del color de fons
     public void setBackgroundColor(int c){
         this.TextFieldColor = c;
+    }
+
+    public void setLimit(int l){
+        this.limit = l;
+    }
+
+    public void setMultiline(boolean b){
+        this.isMultiline = b;
+    }
+
+    public void setSelectedColor(int c){
+        this.selectedColor = c;
     }
 
 }
