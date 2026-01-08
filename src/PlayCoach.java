@@ -64,6 +64,10 @@ public class    PlayCoach extends PApplet {
             case ENTRENAMIENTO:
                 appGUI.dibujoPantallEntrenamientos(this);
                 break;
+
+            case ALERTAS:
+                appGUI.dibujoPantallaAlerta(this);
+                break;
         }
 
         // Mostra la paleta de colors
@@ -131,6 +135,7 @@ public class    PlayCoach extends PApplet {
             appGUI.pantallaActual = GUI.PANTALLA.ENTRENAMIENTO;
 
         }
+
         if (appGUI.b7.mouseOverButton(this)) {
             println("B7 has been pressed!!");
             appGUI.b7.toggleSelected();
@@ -139,6 +144,8 @@ public class    PlayCoach extends PApplet {
         if (appGUI.b8.mouseOverButton(this)) {
             println("B8 has been pressed!!");
             appGUI.b8.toggleSelected();
+            appGUI.pantallaActual = GUI.PANTALLA.ALERTAS;
+
         }
         if(appGUI.btable1.mouseOverButton(this) && appGUI.btable1.isEnabled()){
             appPagedTable.nextPage();
@@ -181,6 +188,4 @@ public class    PlayCoach extends PApplet {
             appGUI.titol = selection.getName();  // Actualitzam títol
         }
     }
-
-
 }

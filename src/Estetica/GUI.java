@@ -20,7 +20,7 @@ public class GUI{
     public Botons bLoadImg;
 
     //Enumerat de les pantalles de l'app
-    public enum PANTALLA {LOGIN, INICIAL, CALENDAR, JUGADAS, ENTRENAMIENTO};
+    public enum PANTALLA {LOGIN, INICIAL, CALENDAR, JUGADAS, ENTRENAMIENTO, ALERTAS};
 
     //Pantalla actual
     public PANTALLA pantallaActual;
@@ -175,6 +175,17 @@ public class GUI{
         p5.textSize(75);
         p5.text("ENTRENAMIENTOS DEL MES", p5.width/2-300, p5.height/2-365);
         p5.popMatrix();
+    }
+
+    public void dibujoPantallaAlerta(PApplet p5){
+        p5.background(paleta.getColorAt(0));
+        logoPantallas(p5, logoPantalles);
+        sideBar(p5);
+        b4.display(p5);
+        b5.display(p5);
+        b6.display(p5);
+        b7.display(p5);
+        b8.display(p5);
     }
 
     //Zones de la GUI

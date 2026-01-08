@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8923a238-6649-4ad7-82aa-17c3b9a5060a" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Botons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Botons.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Estetica/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/PagedTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/PagedTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Paleta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Paleta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PlayCoach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayCoach.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -302,7 +299,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764579743583</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary=".">
+      <option name="closed" value="true" />
+      <created>1766069646215</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1766069646215</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
