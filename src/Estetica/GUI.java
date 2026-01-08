@@ -10,9 +10,10 @@ public class GUI{
 
     static Paleta paleta;
 
+    Counter cr, cg, cb;
 
     public String titol;
-    public PImage logo, logoPantalles, footballfield, loadImage;
+    public PImage logo, logoPantalles, footballfield, loadImage, imgMas, imgMenos;
     PShape house, fieldicon, football, calendar, alert;
     //Botons
     public BotonsEstat b1, b2, b4, b5, b6, b7, b8;
@@ -26,10 +27,12 @@ public class GUI{
     public PANTALLA pantallaActual;
 
     //Text Field
-    public Text_Field text1;
+    public Text_Field text1, textAlert;
 
     //Dimensions botons
     float buttonW = 120, buttonH = 60;
+    //Dimensions botons counter
+    float counterW = 200, counterH = 80;
 
     //Taula paginada
     PagedTable t;
@@ -73,6 +76,8 @@ public class GUI{
         pantallaActual = PANTALLA.LOGIN;
         paleta = new Paleta(p5);
         footballfield = p5.loadImage("Football_field.png");
+        imgMas = p5.loadImage("iconaMes.png");
+        imgMenos = p5.loadImage("iconaMenys.png");
 
         t = new PagedTable(p5, files, columnes);
         t.setHeaders(headers);
@@ -94,9 +99,15 @@ public class GUI{
         b7 = new BotonsEstat(p5,calendar, marginH+25,2*marginV+450, 65,65);
         b8 = new BotonsEstat(p5,alert, marginH+25,2*marginV+550, 65,65);
 
-        bLoadImg = new Botons(p5, "Load Image", 100, 100, 100, 40);
+        bLoadImg = new Botons(p5, "Load Image", p5.width/2-100, p5.height/2, 200,50);
+
+        //Botons counter
+        cr = new Counter(p5, imgMas, imgMenos, p5.width/4, p5.height/4, counterW, counterH);
+        cg = new Counter(p5, imgMas, imgMenos, p5.width/4, p5.height/2, counterW, counterH);
+        cb = new Counter(p5, imgMas, imgMenos, p5.width/4, 3*p5.height/4, counterW, counterH);
 
         text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
+        textAlert = new Text_Field(p5, p5.width/2-350, p5.height/2-350, 1000,800);
     }
     //Pantalles GUI
 
@@ -126,6 +137,9 @@ public class GUI{
         b7.display(p5);
         b8.display(p5);
         bLoadImg.display(p5);
+        cr.display(p5);
+        cg.display(p5);
+        cb.display(p5);
 
     }
 
@@ -186,6 +200,7 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
+        textAlert.display(p5);
     }
 
     //Zones de la GUI

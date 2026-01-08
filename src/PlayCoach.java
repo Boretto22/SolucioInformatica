@@ -1,5 +1,6 @@
 import Estetica.*;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 import java.io.File;
 
@@ -11,6 +12,8 @@ public class    PlayCoach extends PApplet {
     PagedTable appPagedTable;
     CalendariPlus appCalendariPlus;
     Calendari appCalendari;
+    Counter appCounter;
+    PImage iconaMes, iconaMenys;
 
 
     public static void main(String[] args) {
@@ -21,10 +24,13 @@ public class    PlayCoach extends PApplet {
         fullScreen();
     }
     public void setup(){
+        iconaMes = loadImage("iconaMes.png");
+        iconaMenys = loadImage("iconaMenys.png");
         appTipografia = new Tipografia(this);
         appGUI = new GUI(this);
         appPagedTable = new PagedTable(this,7,5);
         appCalendariPlus = new CalendariPlus(this,50,200,700,550);
+        appCounter = new Counter(this, iconaMes, iconaMenys, 400, 400, 100, 50 );
     }
 
     public void draw(){
@@ -172,6 +178,8 @@ public class    PlayCoach extends PApplet {
             // Obrim el dialeg
             selectInput("Selecciona una imatge ...", "fileSelected");
         }
+
+
     }
 
 

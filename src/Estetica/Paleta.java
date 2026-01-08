@@ -21,6 +21,7 @@ public class Paleta {
         this.colors[5] = p5.color(0xFFE0E0E0); //blanc
         this.colors[6] = p5.color(0xFFC9FF00); // botons sidebar
         this.colors[7] = p5.color(0xFFA9D600); // boto pressed sidebar
+        this.colors[8] = p5.color(0xFF000000); //negre
 
     }
 

@@ -25,11 +25,11 @@ public class Text_Field {
         this.y = y;
         this.w = w;
         this.h = h;
-        this.TextFieldColor = paleta.getColorAt(3);
+        this.TextFieldColor = paleta.getColorAt(2);
         this.textColor = p5.color(0);
         this.selectedColor = paleta.getColorAt(1);
-        this.borderColor = paleta.getColorAt(3);
-        this.borderWeight = 1;
+        this.borderColor = paleta.getColorAt(8);
+        this.borderWeight = 2;
     }
 
     // Dibuixa el Camp de Text
