@@ -10,8 +10,8 @@ public class    PlayCoach extends PApplet {
     Tipografia appTipografia;
     GUI appGUI;
     PagedTable appPagedTable;
-    CalendariPlus appCalendariPlus;
-    Calendari appCalendari;
+    //CalendariPlus appCalendariPlus;
+    //Calendari appCalendari;
     Counter appCounter;
     PImage iconaMes, iconaMenys;
 
@@ -29,7 +29,7 @@ public class    PlayCoach extends PApplet {
         appTipografia = new Tipografia(this);
         appGUI = new GUI(this);
         appPagedTable = new PagedTable(this,7,5);
-        appCalendariPlus = new CalendariPlus(this,50,200,700,550);
+        //appCalendariPlus = new CalendariPlus(this,50,200,700,550);
         appCounter = new Counter(this, iconaMes, iconaMenys, 400, 400, 100, 50 );
     }
 
@@ -165,15 +165,24 @@ public class    PlayCoach extends PApplet {
         appGUI.textAlert.isPressed(this);
 
         // Comprovar si clicam sobre botons del Calendari
-        appCalendariPlus.checkButtons(this);
+        //appCalendariPlus.checkButtons(this);
+        appGUI.c.checkButtons(this);
 
         // Si pitjam el botó de Next, canviarà al seguent mes
-        if(appCalendariPlus.bNext.mouseOverButton(this)){
-            appCalendariPlus.nextMonth();
+        //if(appCalendariPlus.bNext.mouseOverButton(this)){
+            //appCalendariPlus.nextMonth();
+        if(appGUI.c.bNext.mouseOverButton(this)){
+            appGUI.c.nextMonth();
         }
         // Si pitjam el botó de Prev, canviarà al mes anterior
-        if(appCalendariPlus.bPrev.mouseOverButton(this)){
-            appCalendariPlus.prevMonth();
+        //if(appCalendariPlus.bPrev.mouseOverButton(this)){
+            //appCalendariPlus.prevMonth();
+        if(appGUI.c.bPrev.mouseOverButton(this)){
+            appGUI.c.prevMonth();
+        }
+
+        if(appGUI.c.isDateSelected()){
+            appGUI.dataCalendari = appGUI.c.getSelectedDate();
         }
 
         if(appGUI.bLoadImg.mouseOverButton(this)){

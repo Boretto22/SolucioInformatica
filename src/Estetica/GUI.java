@@ -60,7 +60,7 @@ public class GUI{
     };
 
     //CalendariPlus
-    CalendariPlus c;
+    public CalendariPlus c;
     public String dataCalendari = "";
 
     public GUI(PApplet p5){
