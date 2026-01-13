@@ -9,7 +9,7 @@ public class    PlayCoach extends PApplet {
 
     Tipografia appTipografia;
     GUI appGUI;
-    PagedTable appPagedTable;
+    //PagedTable appPagedTable;
     //CalendariPlus appCalendariPlus;
     //Calendari appCalendari;
     Counter appCounter;
@@ -28,7 +28,7 @@ public class    PlayCoach extends PApplet {
         iconaMenys = loadImage("iconaMenys.png");
         appTipografia = new Tipografia(this);
         appGUI = new GUI(this);
-        appPagedTable = new PagedTable(this,7,5);
+        //appPagedTable = new PagedTable(this,7,5);
         //appCalendariPlus = new CalendariPlus(this,50,200,700,550);
         appCounter = new Counter(this, iconaMes, iconaMenys, 400, 400, 100, 50 );
     }
@@ -94,10 +94,12 @@ public class    PlayCoach extends PApplet {
         appGUI.text1.keyPressed(key, keyCode);
         appGUI.textAlert.keyPressed(key, keyCode);
         if(keyCode==LEFT){
-            appPagedTable.prevPage();
+            //appPagedTable.prevPage();
+            appGUI.prevPage();
         }
         else if(keyCode==RIGHT){
-            appPagedTable.nextPage();
+            //appPagedTable.nextPage();
+            appGUI.nextPage();
         }
 
     }
@@ -133,8 +135,9 @@ public class    PlayCoach extends PApplet {
         }
         if (appGUI.b5.mouseOverButton(this)) {
             println("B5 has been pressed!!");
-            appGUI.pantallaActual = GUI.PANTALLA.JUGADAS;
             appGUI.b5.toggleSelected();
+            appGUI.pantallaActual = GUI.PANTALLA.JUGADAS;
+
         }
         if (appGUI.b6.mouseOverButton(this)) {
             println("B6 has been pressed!!");
@@ -155,10 +158,12 @@ public class    PlayCoach extends PApplet {
 
         }
         if(appGUI.btable1.mouseOverButton(this) && appGUI.btable1.isEnabled()){
-            appPagedTable.nextPage();
+            //appPagedTable.nextPage();
+            appGUI.nextPage();
         }
         else if(appGUI.btable2.mouseOverButton(this) && appGUI.btable2.isEnabled()){
-                appPagedTable.prevPage();
+            //appPagedTable.prevPage();
+            appGUI.prevPage();
         }
 
         appGUI.text1.isPressed(this);

@@ -1,6 +1,5 @@
 package Estetica;
 import static Estetica.Medida.*;
-import static java.lang.Math.PI;
 
 import processing.core.*;
 
@@ -57,7 +56,30 @@ public class GUI{
             {"Posesion", "-", "-", "Posesion", "Automatismos"},
             {"Automatismo", "-", "-", "Fisico", "Jugadas"},
             {"Definición", "-", "-", "Definición", "Definición"},
+
+            {"Pagina 2", "Descanso", "Descanso", "Campo:", "Campo:"},
+            {"Rondos", "P2", "-", "Juegos", "Rondos"},
+            {"Juego", "-", "P2", "Rondos", "Juego"},
+            {"Posesion", "-", "-", "P2", "Automatismos"},
+            {"Automatismo", "-", "-", "Fisico", "P2"},
+            {"Definición", "-", "-", "Definición", "Definición"},
+
+            {"Pagina 3", "Descanso", "Descanso", "Campo:", "Campo:"},
+            {"Rondos", "P3", "-", "Juegos", "Rondos"},
+            {"Juego", "-", "P3", "Rondos", "Juego"},
+            {"Posesion", "-", "-", "P3", "Automatismos"},
+            {"Automatismo", "-", "-", "Fisico", "P3"},
+            {"Definición", "-", "-", "Definición", "Definición"},
     };
+
+    // Delegacio paginacio
+    public void nextPage() {
+        if (t != null) t.nextPage();
+    }
+
+    public void prevPage() {
+        if (t != null) t.prevPage();
+    }
 
     //CalendariPlus
     public CalendariPlus c;
@@ -163,10 +185,10 @@ public class GUI{
     public void dibujoPantallaJugadas(PApplet p5){
         p5.background(paleta.getColorAt(0));
         logoPantallas(p5, logoPantalles);
-        p5.pushMatrix();
-        //p5.rotate(PConstants.HALF_PI);
-        footballField(p5, footballfield);
-        p5.popMatrix();
+        // Calculate X position: Sidebar margin + Sidebar width + spacing + half of visual width (which is height when rotated)
+        float fieldVisualWidth = footballFieldHeight + 300;
+        float fieldX = marginH + sidebarWidth + 50 + fieldVisualWidth / 2;
+        drawFootballField(p5, footballfield, p5.width/2, p5.height/2);
         sideBar(p5);
         b4.display(p5);
         b5.display(p5);
@@ -219,11 +241,12 @@ public class GUI{
         p5.image(logoPantalles, p5.width/2-900, p5.height/2-465, logoPantallesWidth/2+50, logoPantallesHeight/2+50);
     }
 
-    public void footballField(PApplet p5, PImage footballfield){
+    public void drawFootballField(PApplet p5, PImage footballfield, float x, float y){
         p5.imageMode(PConstants.CENTER);
         p5.pushMatrix();
-        //p5.rotate(HALF_PI);
-        p5.image(footballfield, p5.width/2, p5.height/2, footballFieldWidth, footballFielsHeight+300);
+        p5.translate(x, y);
+        p5.rotate(PConstants.HALF_PI);
+        p5.image(footballfield, 0, 0, footballFieldWidth+100, footballFieldHeight+500);
         p5.popMatrix();
     }
 
