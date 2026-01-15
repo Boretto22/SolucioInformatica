@@ -115,11 +115,13 @@ public class    PlayCoach extends PApplet {
     public void mousePressed() {
         if (appGUI.b1.mouseOverButton(this)) {
             println("B1 has been pressed!!");
-            appGUI.b1.toggleSelected();
+            appGUI.b1.setSelected(true);
+            appGUI.b2.setSelected(false);
         }
         if (appGUI.b2.mouseOverButton(this)) {
             println("B2 has been pressed!!");
-            appGUI.b2.toggleSelected();
+            appGUI.b2.setSelected(true);
+            appGUI.b1.setSelected(false);
         }
         if (appGUI.blogin.mouseOverButton(this)) {
             println("BLogIn has been pressed!!");
@@ -131,29 +133,50 @@ public class    PlayCoach extends PApplet {
         }
         if (appGUI.b4.mouseOverButton(this)) {
             println("B4 has been pressed!!");
-            appGUI.b4.toggleSelected();
+            appGUI.b4.setSelected(true);
+            appGUI.b5.setSelected(false);
+            appGUI.b6.setSelected(false);
+            appGUI.b7.setSelected(false);
+            appGUI.b8.setSelected(false);
+            appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
         }
         if (appGUI.b5.mouseOverButton(this)) {
             println("B5 has been pressed!!");
-            appGUI.b5.toggleSelected();
+            appGUI.b5.setSelected(true);
+            appGUI.b4.setSelected(false);
+            appGUI.b6.setSelected(false);
+            appGUI.b7.setSelected(false);
+            appGUI.b8.setSelected(false);
             appGUI.pantallaActual = GUI.PANTALLA.JUGADAS;
 
         }
         if (appGUI.b6.mouseOverButton(this)) {
             println("B6 has been pressed!!");
-            appGUI.b6.toggleSelected();
+            appGUI.b6.setSelected(true);
+            appGUI.b4.setSelected(false);
+            appGUI.b5.setSelected(false);
+            appGUI.b7.setSelected(false);
+            appGUI.b8.setSelected(false);
             appGUI.pantallaActual = GUI.PANTALLA.ENTRENAMIENTO;
 
         }
 
         if (appGUI.b7.mouseOverButton(this)) {
             println("B7 has been pressed!!");
-            appGUI.b7.toggleSelected();
+            appGUI.b7.setSelected(true);
+            appGUI.b4.setSelected(false);
+            appGUI.b5.setSelected(false);
+            appGUI.b6.setSelected(false);
+            appGUI.b8.setSelected(false);
             appGUI.pantallaActual = GUI.PANTALLA.CALENDAR;
         }
         if (appGUI.b8.mouseOverButton(this)) {
             println("B8 has been pressed!!");
-            appGUI.b8.toggleSelected();
+            appGUI.b8.setSelected(true);
+            appGUI.b4.setSelected(false);
+            appGUI.b5.setSelected(false);
+            appGUI.b6.setSelected(false);
+            appGUI.b7.setSelected(false);
             appGUI.pantallaActual = GUI.PANTALLA.ALERTAS;
 
         }
