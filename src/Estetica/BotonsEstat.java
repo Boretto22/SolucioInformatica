@@ -50,6 +50,13 @@ public class BotonsEstat extends Botons{
             this.fillColorOver = paleta.getColorAt(1);
             p5.shapeMode(p5.CENTER);
             p5.shape(shape, this.x + this.w / 2, this.y + this.h / 2, this.w, this.h);
+
+            if (textBoto != null && !textBoto.isEmpty()) {
+                p5.fill(paleta.getColorAt(2));
+                p5.textAlign(p5.LEFT, p5.CENTER);
+                p5.textSize(50);
+                p5.text(textBoto, this.x + this.w + 10, this.y + this.h / 2 - 5);
+            }
         }
         p5.popStyle();
     }
