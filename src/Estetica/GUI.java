@@ -189,7 +189,7 @@ public class GUI{
             }
         }
 
-        // --- INIT PANTALLA INICIAL ---
+        // INIT PANTALLA INICIAL
         // Header
         nombreEquipoTextField = new Text_Field(p5, 340, 20, 300, 50);
         nombreEquipoTextField.setText("Nombre del Equipo");
@@ -255,7 +255,7 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
-        // 1. Header
+        // Header
         // Text Field "Nombre del equipo"
         nombreEquipoTextField.display(p5);
         p5.fill(0);
@@ -268,18 +268,18 @@ public class GUI{
         float imgY = 150;
         p5.noFill();
         p5.stroke(0);
-        p5.rectMode(PConstants.CENTER); // Set rect mode to center to match ellipse positioning
+        p5.rectMode(PConstants.CENTER);
         p5.rect(imgX, imgY, 150, 150);
         if(loadImage != null){
             p5.imageMode(PConstants.CENTER);
             p5.image(loadImage, imgX, imgY, 140, 140);
         }
         p5.rectMode(PConstants.CORNER);
-        // Load Img Button (Small, under image)
+        // Load Img Button
         bLoadImg.x = imgX - 50;
         bLoadImg.y = imgY + 80;
         bLoadImg.display(p5);
-        // 2. Central Match Counters (PJ, PG, PE, PP)
+        // Central Match Counters (PJ, PG, PE, PP)
         float startX = (marginH + sidebarWidth + p5.width)/2 - 220; // Centered roughly
         float startY = 400;
         float boxW = 100, boxH = 50;
@@ -307,20 +307,19 @@ public class GUI{
             p5.textAlign(p5.CENTER, p5.CENTER);
             p5.text(values[i], bx + boxW/2, startY + boxH/2);
         }
-        p5.strokeWeight(1); // Reset
+        p5.strokeWeight(1);
 
         // Plus/Minus Buttons
         btnMatchPlus.display(p5);
         btnMatchMinus.display(p5);
 
 
-        // 3. Right Sidebar Stats
+        // Right Sidebar Stats
         float rightX = p5.width - 250;
         float sY = 50;
         float gY = 80;
         int txtSize = 20;
 
-        // Helper to draw row
         drawStatRow(p5, "Puntos", statsPuntos, rightX, sY, null); // Manual buttons for points
         btnPointsPlus3.display(p5);
         btnPointsPlus1.display(p5);
@@ -343,7 +342,6 @@ public class GUI{
         btnRedMinus.display(p5);
     }
 
-    // Helper method for stats rows
     void drawStatRow(PApplet p5, String label, int val, float x, float y, Botons[] btns){
         p5.fill(0);
         p5.textAlign(p5.LEFT, p5.BOTTOM);
@@ -359,7 +357,7 @@ public class GUI{
         p5.text(val, x + 25, y + 20);
     }
 
-    // Interaction Logic for Initial Screen
+    // Pantalla inicial interaccions
     public void checkMousePantallaInicial(PApplet p5){
         // Match Counters Selection
         float startX = (marginH + sidebarWidth + p5.width)/2 - 220;
@@ -431,18 +429,15 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
-        logoPantallas(p5, logoPantalles); // Keep logo if desired, or remove to save space
+        logoPantallas(p5, logoPantalles);
 
-        // 1. Draw Field (Canvas)
-        // Calculate X position: Sidebar margin + Sidebar width + spacing + half of visual width (which is height when rotated)
+        // FootballField
         float fieldVisualWidth = footballFieldHeight + 300;
-        float fieldX = marginH + sidebarWidth + 200 + fieldVisualWidth / 2; // Shifted right to make room for panel
-        // Actually, let's just make the field fill the right side
-        // But reusing existing drawFootballField logic:
+        float fieldX = marginH + sidebarWidth + 200 + fieldVisualWidth / 2;
         drawFootballField(p5, footballfield, fieldX, p5.height/2);
 
 
-        // 2. Draw Active Elements (Bottom layer: Arrows, then Images)
+        // Elements actius
         for(TacticalArrow a : activeArrows){
             a.display(p5);
         }
@@ -454,7 +449,7 @@ public class GUI{
             d.display(p5);
         }
 
-        // 3. Draw Resource Panel (Overlay on left)
+        // panel esquerra
         float rX = marginH + sidebarWidth + 30; // Left of field
         float rY = 150;
         float rSize = 60;
@@ -469,7 +464,6 @@ public class GUI{
         for(int i=0; i<resources.size(); i++){
             p5.imageMode(PConstants.CENTER);
             PImage icon = resources.get(i);
-            // Draw Thumbnail
             float ar = (icon != null && icon.height != 0) ? (float)icon.width/icon.height : 1;
             // Fit to rSize
             float dw = rSize;
@@ -482,9 +476,9 @@ public class GUI{
 
     }
 
-    // Interaction Logic for Jugadas Screen
+    // Interactccions amb pantalla jugadas
     public void checkMousePressedJugadas(PApplet p5){
-        // 1. Check Panel (Clone)
+        // Check Panel (Clone)
         float rX = marginH + sidebarWidth + 30;
         float rY = 150;
         float rSize = 60;
@@ -493,21 +487,19 @@ public class GUI{
         for(int i=0; i<resources.size(); i++){
             float itemY = rY + i*spacing + rSize/2;
             float itemX = rX + rSize/2;
-            // Simple hit detect on center point approx
             if(p5.dist(p5.mouseX, p5.mouseY, itemX, itemY) < rSize/2){
-                // Clone resource
+                // Clon
                 PImage original = resources.get(i);
-                // Determine standard size for field (e.g. 50x50 or proportional)
+                // Size
                 DraggableImage newImg = new DraggableImage(original, p5.mouseX, p5.mouseY, 50, 50 * ((float)original.height/original.width));
                 activeImages.add(newImg);
                 currentDrag = newImg;
                 currentDrag.dragging = true;
-                return; // Handled
+                return;
             }
         }
 
-        // 2. Check Existing Images (Drag)
-        // Reverse loop to pick top-most first
+        // Check Existing Images
         for(int i=activeImages.size()-1; i>=0; i--){
             DraggableImage d = activeImages.get(i);
             if(d.contains(p5.mouseX, p5.mouseY)){
@@ -517,11 +509,9 @@ public class GUI{
             }
         }
 
-        // 3. Field (Arrow)
-        // If not touching anything else, start arrow
+        // Field (Arrow)
         arrowStart = new PVector(p5.mouseX, p5.mouseY);
-        currentArrow = new TacticalArrow(arrowStart, new PVector(p5.mouseX, p5.mouseY), p5.color(0)); // Black arrow, could be customizable
-        // Add to list immediately or wait? Let's keep it in 'currentArrow' until release.
+        currentArrow = new TacticalArrow(arrowStart, new PVector(p5.mouseX, p5.mouseY), p5.color(0));
     }
 
     public void checkMouseDraggedJugadas(PApplet p5){
@@ -538,7 +528,7 @@ public class GUI{
             currentDrag = null;
         }
         if(currentArrow != null){
-            // If arrow is too small, ignore it?
+            // Si fletxa molt petita ingnorar
             if(PApplet.dist(currentArrow.start.x, currentArrow.start.y, currentArrow.end.x, currentArrow.end.y) > 10){
                 activeArrows.add(currentArrow);
             }
