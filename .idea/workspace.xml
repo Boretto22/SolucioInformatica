@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8923a238-6649-4ad7-82aa-17c3b9a5060a" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/Data/Jugadas/Aro.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Jugadas/Escalera.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Jugadas/Jugador 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Jugadas/Jugador 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Jugadas/Porter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Jugadas/porteria.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Estetica/DraggableImage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Estetica/TacticalArrow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/BotonsEstat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/BotonsEstat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayCoach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayCoach.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -377,7 +366,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768466777055</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary=".">
+      <option name="closed" value="true" />
+      <created>1768743380104</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1768743380104</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
