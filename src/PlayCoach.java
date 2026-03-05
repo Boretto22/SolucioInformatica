@@ -1,4 +1,5 @@
 import Estetica.*;
+import Servidor.DataBase;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -7,6 +8,7 @@ import java.io.File;
 public class    PlayCoach extends PApplet {
 
 
+    public static DataBase db;
     Tipografia appTipografia;
     GUI appGUI;
     //PagedTable appPagedTable;
@@ -25,6 +27,10 @@ public class    PlayCoach extends PApplet {
     }
 
     public void setup() {
+
+        db = new DataBase("admin", "12345", "playcoach");
+        db.connect();
+
         iconaMes = loadImage("iconaMes.png");
         iconaMenys = loadImage("iconaMenys.png");
         appTipografia = new Tipografia(this);

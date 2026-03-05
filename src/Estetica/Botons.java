@@ -4,7 +4,6 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PShape;
 
-import static jdk.internal.org.jline.terminal.MouseEvent.Type.Pressed;
 
 public class Botons {
     // Propietats d'un botó:
