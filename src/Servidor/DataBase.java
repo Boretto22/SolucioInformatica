@@ -97,7 +97,7 @@ public class DataBase {
 
     public String[][] getInfoArray2DUnitat(){
         int nf = getNumFilesTaula("unitat");
-        String[][] info = new String[nf][3];
+        String[][] info = new String[nf][3]; // posar num dades que necesiti
         String q = "SELECT numero, nom, curs FROM unitat ORDER BY numero ASC";
         System.out.println(q);
         try{
