@@ -509,4 +509,81 @@ public class DataBase {
             System.out.println(e);
         }
     }
+
+    public void printArray1D(String[] info){
+        System.out.println();
+        for(int i=0; i< info.length; i++){
+            System.out.printf("%d:",i);
+            System.out.printf("%s.\t", info[i]);
+            System.out.println();
+        }
+    }
+
+    public void printArray2D(String[][] info){
+        System.out.println();
+        for(int i=0; i<info.length; i++){
+            for (int j=0; j<info.length; j++) {
+                System.out.printf("%d:", i);
+                System.out.printf("%s.\t", info[i][j]);
+                System.out.println();
+            }
+        }
+    }
+
+    //Funcion que devuelve el nombre de un cliente con un cierto id
+    public String getUsuarioClienteConId(String id){
+        String q = "SELECT nom FROM usuari WHERE dni='"+id+"'";
+        System.out.println(q);
+        try{
+            ResultSet rs = query.executeQuery(q);
+            rs.next();
+            return rs.getString("nom");
+            //String usuari= rs.getString("nom");
+            //return usuari;
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public String[] getUsuarioTodosClientes(){
+        String q = "SELECT nom FROM usuari ORDERED BY nom ASC";
+        System.out.println(q);
+        try{
+            int numFiles = getNumFilesTaula("usuari");
+            String[] info = new String[numFiles];
+            ResultSet rs = query.executeQuery(q);
+            int f = 0;
+            while (rs.next()){
+                info[f] = rs.getString("nom");
+                f++;
+            }
+            return info;
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public String[][] getInfoTodosClientes() {
+        String q = "SELECT dni, nom FROM usuari ORDERED BY nom ASC";
+        System.out.println(q);
+        try {
+            int numFiles = getNumFilesTaula("usuari");
+            String[][] info = new String[numFiles][2];
+            ResultSet rs = query.executeQuery(q);
+            int f = 0;
+            while (rs.next()) {
+                info[f][0] = rs.getString("dni");
+                info[f][1] = rs.getString("nom");
+                f++;
+            }
+            return info;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }

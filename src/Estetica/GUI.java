@@ -255,8 +255,7 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
-        // Header
-        // Text Field "Nombre del equipo"
+        
         nombreEquipoTextField.display(p5);
         p5.fill(0);
         p5.textAlign(p5.LEFT);
