@@ -10,22 +10,22 @@ public class TestDataBase {
         db = new DataBase("admin", "12345", "playcoach");
         db.connect();
 
-        String s = db.getInfo("usuari", "nom", "dni", "54987354T");
+        String s = db.getInfo("usuario", "ID", "Contraseña", "54321");
         System.out.println(s);
 
-        int n = db.getNumFilesTaula("usuari");
+        int n = db.getNumFilesTaula("usuario");
         System.out.println(n);
 
-        String[] noms = db.getInfoArray("usuari", "nom");
+        String[] noms = db.getInfoArray("usuario", "ID");
         for (int i=0; i< noms.length; i++){
             System.out.println(noms[i]);
         }
 
-        int m = db.getNumFilesTaula("usuari");
-        System.out.printf("Hay %d usuari.\n", m);
+        int m = db.getNumFilesTaula("usuario");
+        System.out.printf("Hay %d usuario.\n", m);
 
         //Nom del client amb id
-        String usuarioCliente = db.getUsuarioClienteConId("54987354T");
+        String usuarioCliente = db.getUsuarioClienteConId("54321");
         System.out.println(usuarioCliente);
 
         String[] nombres = db.getUsuarioTodosClientes();

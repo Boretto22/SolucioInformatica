@@ -532,12 +532,12 @@ public class DataBase {
 
     //Funcion que devuelve el nombre de un cliente con un cierto id
     public String getUsuarioClienteConId(String id){
-        String q = "SELECT nom FROM usuari WHERE dni='"+id+"'";
+        String q = "SELECT ID FROM usuario WHERE Contraseña='"+id+"'";
         System.out.println(q);
         try{
             ResultSet rs = query.executeQuery(q);
             rs.next();
-            return rs.getString("nom");
+            return rs.getString("ID");
             //String usuari= rs.getString("nom");
             //return usuari;
         }
@@ -548,15 +548,15 @@ public class DataBase {
     }
 
     public String[] getUsuarioTodosClientes(){
-        String q = "SELECT nom FROM usuari ORDERED BY nom ASC";
+        String q = "SELECT ID FROM usuario ORDERED BY ID ASC";
         System.out.println(q);
         try{
-            int numFiles = getNumFilesTaula("usuari");
+            int numFiles = getNumFilesTaula("usuario");
             String[] info = new String[numFiles];
             ResultSet rs = query.executeQuery(q);
             int f = 0;
             while (rs.next()){
-                info[f] = rs.getString("nom");
+                info[f] = rs.getString("ID");
                 f++;
             }
             return info;
@@ -568,16 +568,16 @@ public class DataBase {
     }
 
     public String[][] getInfoTodosClientes() {
-        String q = "SELECT dni, nom FROM usuari ORDERED BY nom ASC";
+        String q = "SELECT ID, Contraseña FROM usuario ORDERED BY ID ASC";
         System.out.println(q);
         try {
-            int numFiles = getNumFilesTaula("usuari");
+            int numFiles = getNumFilesTaula("usuario");
             String[][] info = new String[numFiles][2];
             ResultSet rs = query.executeQuery(q);
             int f = 0;
             while (rs.next()) {
-                info[f][0] = rs.getString("dni");
-                info[f][1] = rs.getString("nom");
+                info[f][0] = rs.getString("ID");
+                info[f][1] = rs.getString("Contraseña");
                 f++;
             }
             return info;
@@ -586,4 +586,49 @@ public class DataBase {
         }
         return null;
     }
+
+    public String[][] getInfoUsuarioEntrenador(){
+        String qf = "SELECT c.ID AS mat, c.Foto AS mat, c.Contraseña AS mod, c.Tipus AS mod\n" +
+                "FROM ID id, Foto f, Contraseña c, Tipus Tipus\n" +
+                "WHERE c.usuario ID=u.ID AND u.ID=12345";
+        System.out.println(qf);
+        int nf = this.getNumFilesQuery(qf);
+        String[][] info = new String[nf][4];
+
+        String q = "SELECT c.ID AS mat, c.Foto AS mat, c.Contraseña AS mod, c.Tipus AS mod\n" +
+                "FROM ID id, Foto f, Contraseña c, Tipus Tipus\n" +
+                "WHERE c.usuario ID=u.ID AND u.ID=12345"+
+                "ORDERED BY c.ID";
+        System.out.println(q);
+
+        try {
+            ResultSet rs = query.executeQuery(q);
+            int f=0;
+            while (rs.next()){
+                info[f][0] = rs.getString("id");
+                info[f][1] = rs.getString("f");
+                info[f][2] = rs.getString("c");
+                info[f][3] = rs.getString("Tipus");
+                f++;
+            }
+        }catch (Exception e){
+
+        }
+
+
+        return info;
+    }
+
+    public int getNumFilesQuery(String q){
+
+        try {
+            ResultSet rs = query.executeQuery(q);
+            rs.next();
+            return rs.getInt('q');
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        return 0;
+    }
+
 }
