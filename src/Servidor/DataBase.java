@@ -344,15 +344,15 @@ public class DataBase {
 
     // Retorna totes les dades d'una taula en concret
     public String[][] getInfoTaulaUnitat(){
-        int numFiles = getNumRowsTaula("unitat");
-        int numCols  = 2;
+        int numFiles = getNumRowsTaula("usuario");
+        int numCols  = 4;
         String[][] info = new String[numFiles][numCols];
         try {
-            ResultSet rs = query.executeQuery( "SELECT * FROM unitat");
+            ResultSet rs = query.executeQuery( "SELECT * FROM usuario");
             int nr = 0;
             while (rs.next()) {
-                info[nr][0] = String.valueOf(rs.getInt("numero"));
-                info[nr][1] = rs.getString("nom");
+                info[nr][0] = String.valueOf(rs.getInt("ID"));
+                info[nr][1] = rs.getString("Contraseña");
                 nr++;
             }
             return info;
@@ -485,9 +485,9 @@ public class DataBase {
 
     // Actualitza les dades a la taula Unitat
 
-    void updateInfoTaulaUnitat(String id, String num, String nom){
+    void updateInfoTaulaUnitat(String id, String tipus, String contraseña){
         try {
-            String q = "UPDATE unitat SET numero='"+num+"', nom='"+nom+"' WHERE numero='"+id+"'";
+            String q = "UPDATE usuario SET Tipus='"+tipus+"', Contraseña='"+contraseña+"' WHERE ID='"+id+"'";
             System.out.println(q);
             query.execute(q);
         }
@@ -501,7 +501,7 @@ public class DataBase {
     // Esborra la fila de la taula Unitat amb el número concret
     void deleteInfoTaulaUnitat(String id){
         try {
-            String q = "DELETE FROM unitat WHERE numero='"+id+"'";
+            String q = "DELETE FROM usuario WHERE ID='"+id+"'";
             System.out.println(q);
             query.execute(q);
         }
@@ -629,6 +629,23 @@ public class DataBase {
             System.out.println(e);
         }
         return 0;
+    }
+
+    public boolean loginCorrecte(String nombre, String contraseña){
+        String q = "SELECT COUNT(*) AS N "+
+                "FROM usuario "+
+                "WHERE nombre = '" + nombre + "'AND Contraseña ='"+ contraseña + "'";
+        System.out.println(q);
+        try {
+            ResultSet rs = query.executeQuery(q);
+            rs.next();
+            int n = rs.getInt("N");
+            return (n==1);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return false;
     }
 
 }

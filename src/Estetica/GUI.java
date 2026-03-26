@@ -47,7 +47,7 @@ public class GUI{
     public PANTALLA pantallaActual;
 
     //Text Field
-    public Text_Field text1, textAlert;
+    public Text_Field text1, text2, textAlert;
 
     //VARIABLES PANTALLA JUGADAS (Interactivas)
     java.util.ArrayList<PImage> resources = new java.util.ArrayList<PImage>();
@@ -148,8 +148,8 @@ public class GUI{
 
         b1 = new BotonsEstat(p5,"ENTRENADOR", p5.width/2-300,p5.height/2,250,100);
         b2 = new BotonsEstat(p5, "JUGADOR", p5.width/2+50, p5.height/2, 250, 100);
-        blogin = new Botons(p5,"LOG IN", p5.width/2-450, p5.height/2+350, 400,75);
-        bsignup = new Botons(p5,"SIGN UP", p5.width/2+50, p5.height/2+350, 400,75);
+        blogin = new Botons(p5,"LOG IN", p5.width/2-450, p5.height/2+400, 400,75);
+        bsignup = new Botons(p5,"SIGN UP", p5.width/2+50, p5.height/2+400, 400,75);
         b4 = new BotonsEstat(p5,house, marginH+25,2*marginV+150, 65,65);
         b4.setTextBoto(p5, "Home");
         b5 = new BotonsEstat(p5,fieldicon, marginH+25,2*marginV+250, 65,65);
@@ -168,7 +168,8 @@ public class GUI{
         cg = new Counter(p5, imgMas, imgMenos, p5.width/4, p5.height/2, counterW, counterH);
         cb = new Counter(p5, imgMas, imgMenos, p5.width/4, 3*p5.height/4, counterW, counterH);
 
-        text1 = new Text_Field(p5, p5.width/2-200, p5.height/2+200, 400,100);
+        text1 = new Text_Field(p5, p5.width/2-400, p5.height/2+200, 400,100);
+        text2 = new Text_Field(p5, p5.width/2+25, p5.height/2+200, 400, 100);
         textAlert = new Text_Field(p5, p5.width/2-350, p5.height/2-350, 1000,800);
         textAlert.setBackgroundColor(paleta.getColorAt(9));
         textAlert.setLimit(1000);
@@ -238,10 +239,12 @@ public class GUI{
         blogin.display(p5);
         bsignup.display(p5);
         text1.display(p5);
+        text2.display(p5);
         p5.pushMatrix();
         p5.fill(0);
         p5.textFont(pFont1);
-        p5.text("USERNAME", p5.width/2-200, p5.height/2+180);
+        p5.text("USERNAME", p5.width/2-400, p5.height/2+180);
+        p5.text("PASSWORD", p5.width/2+25, p5.height/2+175);
         p5.popMatrix();
 
     }

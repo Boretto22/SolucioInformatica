@@ -17,6 +17,8 @@ public class    PlayCoach extends PApplet {
     Counter appCounter;
     PImage iconaMes, iconaMenys;
 
+    boolean loginOK = true;
+
 
     public static void main(String[] args) {
         PApplet.main("PlayCoach");
@@ -91,14 +93,20 @@ public class    PlayCoach extends PApplet {
 
     //KEYBOARD interaction
 
+    public void keyTyped(){
+        appGUI.text1.keyTyped(key);
+        appGUI.text2.keyTyped(key);
+        appGUI.textAlert.keyTyped(key);
+    }
+
+
     public void keyPressed() {
-        if (key == '0') {
-            appGUI.pantallaActual = GUI.PANTALLA.LOGIN;
-        } else if (key == '1') {
-            appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
-        }
-        appGUI.text1.keyPressed(key, keyCode);
-        appGUI.textAlert.keyPressed(key, keyCode);
+       // appGUI.text1.keyPressed(key, keyCode);
+       // appGUI.text2.keyPressed(key,keyCode);
+       // appGUI.textAlert.keyPressed(key, keyCode);
+        appGUI.text1.keyPressed(keyCode);
+        appGUI.text2.keyPressed(keyCode);
+        appGUI.textAlert.keyPressed(keyCode);
         if (appGUI.nombreEquipoTextField != null) appGUI.nombreEquipoTextField.keyPressed(key, keyCode);
         if (keyCode == LEFT) {
             //appPagedTable.prevPage();
@@ -130,14 +138,7 @@ public class    PlayCoach extends PApplet {
             appGUI.b2.setSelected(true);
             appGUI.b1.setSelected(false);
         }
-        if (appGUI.blogin.mouseOverButton(this)) {
-            println("BLogIn has been pressed!!");
-            appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
-        }
-        if (appGUI.bsignup.mouseOverButton(this)) {
-            println("BSignUp has been pressed!!");
-            appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
-        }
+
         if (appGUI.b4.mouseOverButton(this)) {
             println("B4 has been pressed!!");
             appGUI.b4.setSelected(true);
@@ -196,6 +197,7 @@ public class    PlayCoach extends PApplet {
         }
 
         appGUI.text1.isPressed(this);
+        appGUI.text2.isPressed(this);
         appGUI.textAlert.isPressed(this);
 
         // Comprovar si clicam sobre botons del Calendari
@@ -232,8 +234,30 @@ public class    PlayCoach extends PApplet {
             appGUI.checkMousePressedJugadas(this);
         }
 
+        if (appGUI.blogin.mouseOverButton(this)){
+            String id= appGUI.text1.getText();
+            String contraseña = appGUI.text2.getText();
+            if (db.loginCorrecte(id, contraseña)){
+                loginOK = true;
+                if (appGUI.blogin.mouseOverButton(this)) {
+                    println("BLogIn has been pressed!!");
+                    appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
+                    //if (appGUI.bsignup.mouseOverButton(this)) {
+                        //println("BSignUp has been pressed!!");
+                        //appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
+                    //}
+                }
+                println("LOGIN OK");
+            } else {
+                println("LOGIN WRONG");
+                loginOK = false;
+            }
+        }
+
 
     }
+
+
 
 
     public void mouseDragged() {
