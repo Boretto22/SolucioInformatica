@@ -17,6 +17,9 @@ public class BotonsEstat extends Botons{
 
     public void setSelected(boolean b){ this.selected = b; }
 
+    public boolean isSelected(){ return this.selected; }
+
+
     public void toggleSelected(){ this.selected = !this.selected ; }
 
     // Dibuixa el botó

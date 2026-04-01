@@ -242,15 +242,47 @@ public class    PlayCoach extends PApplet {
                 if (appGUI.blogin.mouseOverButton(this)) {
                     println("BLogIn has been pressed!!");
                     appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
-                    //if (appGUI.bsignup.mouseOverButton(this)) {
-                        //println("BSignUp has been pressed!!");
-                        //appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
-                    //}
                 }
                 println("LOGIN OK");
             } else {
                 println("LOGIN WRONG");
                 loginOK = false;
+            }
+        }
+
+        if (appGUI.b1.mouseOverButton(this) || appGUI.b2.mouseOverButton(this)) {
+
+            try {
+                String nombre = appGUI.text1.getText();
+                String contraseña = appGUI.text2.getText();
+
+                String tipus = "";
+                if (appGUI.b1.isSelected()) tipus = "Entrenador";
+                else if (appGUI.b2.isSelected()) tipus = "Jugador";
+
+                int id = (int)(Math.random() * Integer.MAX_VALUE);
+
+                String sql = "INSERT INTO usuario (ID, nombre, Contraseña, Tipus) VALUES (?, ?, ?, ?)";
+
+                java.sql.PreparedStatement ps = db.getConnection().prepareStatement(sql);
+
+                ps.setInt(1, id);
+                ps.setString(2, nombre);
+                ps.setString(3, contraseña);
+                ps.setString(4, tipus);
+
+                ps.executeUpdate();
+
+                println("USUARI GUARDAT A MYSQL - ID: ");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                println("ERROR EN EL SIGNUP");
+            }
+
+            if (appGUI.blogin.mouseOverButton(this)) {
+                println("BLogIn has been pressed!!");
+                appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
             }
         }
 

@@ -37,6 +37,11 @@ public class DataBase {
         }
     }
 
+    public Connection getConnection(){
+        return c;
+    }
+
+
     // Retorna la informació d'una casella
 
     public String getInfo(String nomTaula, String nomColumna, String nomClau, String identificador){
