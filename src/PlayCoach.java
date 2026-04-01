@@ -241,6 +241,7 @@ public class    PlayCoach extends PApplet {
                 loginOK = true;
                 if (appGUI.blogin.mouseOverButton(this)) {
                     println("BLogIn has been pressed!!");
+                    appGUI.currentUserNombre = appGUI.text1.getText();
                     appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
                 }
                 println("LOGIN OK");
@@ -250,7 +251,7 @@ public class    PlayCoach extends PApplet {
             }
         }
 
-        if (appGUI.b1.mouseOverButton(this) || appGUI.b2.mouseOverButton(this)) {
+        else if (appGUI.bsignup.mouseOverButton(this)) {
 
             try {
                 String nombre = appGUI.text1.getText();
@@ -273,6 +274,8 @@ public class    PlayCoach extends PApplet {
 
                 ps.executeUpdate();
 
+                println(nombre);
+
                 println("USUARI GUARDAT A MYSQL - ID: ");
 
             } catch (Exception e) {
@@ -280,7 +283,7 @@ public class    PlayCoach extends PApplet {
                 println("ERROR EN EL SIGNUP");
             }
 
-            if (appGUI.blogin.mouseOverButton(this)) {
+            if (appGUI.bsignup.mouseOverButton(this)) {
                 println("BLogIn has been pressed!!");
                 appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
             }

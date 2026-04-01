@@ -17,10 +17,11 @@ public class GUI{
     //Botons
     public BotonsEstat b1, b2, b4, b5, b6, b7, b8;
     public Botons blogin, btable1, btable2, bsignup;
-    public Botons bLoadImg;
+    public Botons bLoadImg, bSave;
 
     //VARIABLES PANTALLA INICIAL (Redesign)
     public Text_Field nombreEquipoTextField;
+    public String currentUserNombre = "";
 
     // Counters
     public int pj = 0, pg = 0, pe = 0, pp = 0;
@@ -195,8 +196,8 @@ public class GUI{
         nombreEquipoTextField = new Text_Field(p5, 340, 20, 300, 50);
         nombreEquipoTextField.setText("Nombre del Equipo");
         // Image Container reuses bLoadImg, positioned later in dibujoPantallaInicial or updated here?
-        // Let's reset bLoadImg position here or update it in display. Update here for safety.
         bLoadImg = new Botons(p5, "Load Image", p5.width/2 - 50, 200, 100, 40);
+        bSave    = new Botons(p5, "SAVE", p5.width/2 - 50, 260, 100, 40);
 
         // Match Buttons (Global +/-) - Centered below stats
         float midX = (marginH + sidebarWidth + p5.width)/2;
@@ -209,25 +210,25 @@ public class GUI{
         float gapY = 80;
 
         // Puntos
-        btnPointsPlus3 = new Botons(p5, "+3", rightX + 60, startY, 50, 40);
-        btnPointsPlus1 = new Botons(p5, "+1", rightX + 115, startY, 40, 40);
-        btnPointsMinus = new Botons(p5, "-", rightX + 160, startY, 40, 40);
+        btnPointsPlus3 = new Botons(p5, "+3", rightX + 60, startY, 60, 50);
+        btnPointsPlus1 = new Botons(p5, "+1", rightX + 125, startY, 50, 50);
+        btnPointsMinus = new Botons(p5, "-", rightX + 180, startY, 50, 50);
 
         // Goles
-        btnGoalsPlus = new Botons(p5, "+", rightX + 80, startY + gapY, 40, 40);
-        btnGoalsMinus = new Botons(p5, "-", rightX + 130, startY + gapY, 40, 40);
+        btnGoalsPlus = new Botons(p5, "+", rightX + 80, startY + gapY, 50, 50);
+        btnGoalsMinus = new Botons(p5, "-", rightX + 140, startY + gapY, 50, 50);
 
         // Asistencias
-        btnAssistsPlus = new Botons(p5, "+", rightX + 80, startY + 2*gapY, 40, 40);
-        btnAssistsMinus = new Botons(p5, "-", rightX + 130, startY + 2*gapY, 40, 40);
+        btnAssistsPlus = new Botons(p5, "+", rightX + 80, startY + 2*gapY, 50, 50);
+        btnAssistsMinus = new Botons(p5, "-", rightX + 140, startY + 2*gapY, 50, 50);
 
         // Amarillas
-        btnYellowPlus = new Botons(p5, "+", rightX + 80, startY + 3*gapY, 40, 40);
-        btnYellowMinus = new Botons(p5, "-", rightX + 130, startY + 3*gapY, 40, 40);
+        btnYellowPlus = new Botons(p5, "+", rightX + 80, startY + 3*gapY, 50, 50);
+        btnYellowMinus = new Botons(p5, "-", rightX + 140, startY + 3*gapY, 50, 50);
 
         // Rojas
-        btnRedPlus = new Botons(p5, "+", rightX + 80, startY + 4*gapY, 40, 40);
-        btnRedMinus = new Botons(p5, "-", rightX + 130, startY + 4*gapY, 40, 40);
+        btnRedPlus = new Botons(p5, "+", rightX + 80, startY + 4*gapY, 50, 50);
+        btnRedMinus = new Botons(p5, "-", rightX + 140, startY + 4*gapY, 50, 50);
     }
     //Pantalles GUI
 
@@ -246,7 +247,6 @@ public class GUI{
         p5.text("USERNAME", p5.width/2-400, p5.height/2+180);
         p5.text("PASSWORD", p5.width/2+25, p5.height/2+175);
         p5.popMatrix();
-
     }
 
     public void dibujoPantallaInicial(PApplet p5){
@@ -258,116 +258,173 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
-        
+
+        // Center-Left Area Layout
+        float contentLeft = marginH + sidebarWidth;
+        float centerRight = p5.width - 280; // Leaving space for the right panel
+        float centerW = centerRight - contentLeft;
+        float centerX = contentLeft + centerW / 2;
+
+        // 1. Text Field
+        nombreEquipoTextField.x = (int)contentLeft + 50;
+        nombreEquipoTextField.y = 150;
+        nombreEquipoTextField.w = (int)centerW - 100;
         nombreEquipoTextField.display(p5);
+
         p5.fill(0);
         p5.textAlign(p5.LEFT);
         p5.textSize(16);
         p5.text("Nombre del equipo", nombreEquipoTextField.x, nombreEquipoTextField.y - 5);
 
-        // Image Container
-        float imgX = (marginH + sidebarWidth + p5.width)/2;
-        float imgY = 150;
+        // 2. LOAD IMG and SAVE buttons
+        bLoadImg.x = nombreEquipoTextField.x;
+        bLoadImg.y = nombreEquipoTextField.y + 80;
+        bLoadImg.w = 150;
+        bLoadImg.display(p5);
+
+        bSave.x = bLoadImg.x;
+        bSave.y = bLoadImg.y + 60;
+        bSave.w = 150;
+        bSave.display(p5);
+
+        // 3. Foto Square (Larger, tighter to buttons)
+        float imgY = bSave.y + 160; 
         p5.noFill();
         p5.stroke(0);
-        p5.rectMode(PConstants.CENTER);
-        p5.rect(imgX, imgY, 150, 150);
-        if(loadImage != null){
-            p5.imageMode(PConstants.CENTER);
-            p5.image(loadImage, imgX, imgY, 140, 140);
+        p5.rectMode(3); // CENTER
+        p5.rect(centerX, imgY, 200, 200);
+        
+        if (loadImage != null) {
+            p5.imageMode(3); // CENTER
+            p5.image(loadImage, centerX, imgY, 190, 190);
+        } else {
+            p5.fill(0);
+            p5.textAlign(p5.CENTER, p5.CENTER);
+            p5.textSize(20);
+            p5.text("Foto", centerX, imgY);
         }
-        p5.rectMode(PConstants.CORNER);
-        // Load Img Button
-        bLoadImg.x = imgX - 50;
-        bLoadImg.y = imgY + 80;
-        bLoadImg.display(p5);
-        // Central Match Counters (PJ, PG, PE, PP)
-        float startX = (marginH + sidebarWidth + p5.width)/2 - 220; // Centered roughly
-        float startY = 400;
-        float boxW = 100, boxH = 50;
+        p5.rectMode(0); // CORNER
+        
+        // 4. Nombre Text
+        p5.fill(0);
+        p5.textAlign(p5.CENTER, p5.TOP);
+        p5.textSize(24);
+        p5.text(currentUserNombre, centerX, imgY + 90);
 
-        String[] headers = {"PJ", "PG", "PE", "PP"};
+        // 5. Match Counters (PJ, PG, PE, PP)
+        float startY = imgY + 180;
+        float boxW = 120, boxH = 70;
+        // Center the 4 boxes relatively to the center width
+        float boxesTotalW = 4 * boxW + 3 * 10; // 10px spacing
+        float startX = centerX - boxesTotalW / 2;
+
+        String[] headers = {"P.J", "P.G", "P.E", "P.P"};
         int[] values = {pj, pg, pe, pp};
 
         p5.textSize(20);
-        p5.textAlign(p5.CENTER, p5.BOTTOM);
 
-        for(int i=0; i<4; i++){
-            float bx = startX + i*110;
+        for (int i = 0; i < 4; i++) {
+            float bx = startX + i * (boxW + 10);
 
             // Header
             p5.fill(0);
-            p5.text(headers[i], bx + boxW/2, startY - 5);
+            p5.textAlign(p5.CENTER, p5.BOTTOM);
+            p5.text(headers[i], bx + boxW / 2, startY - 5);
 
             // Box
-            if(selectedMatchStat == i) p5.strokeWeight(4); else p5.strokeWeight(1);
+            if (selectedMatchStat == i) p5.strokeWeight(4); else p5.strokeWeight(1);
             p5.fill(255);
             p5.rect(bx, startY, boxW, boxH);
 
-            // Value
+            // Value (showing 0 instead of infinity symbol to stick to standard integer display)
             p5.fill(0);
             p5.textAlign(p5.CENTER, p5.CENTER);
-            p5.text(values[i], bx + boxW/2, startY + boxH/2);
+            p5.text(values[i] == 0 ? "00" : String.valueOf(values[i]), bx + boxW / 2, startY + boxH / 2);
+            
+            // Vertical Divider
+            if (i < 3) {
+                p5.strokeWeight(1);
+                p5.stroke(0);
+                float lineX = bx + boxW + 5;
+                p5.line(lineX, startY - 20, lineX, startY + boxH + 20);
+            }
         }
         p5.strokeWeight(1);
 
-        // Plus/Minus Buttons
+        // 6. Plus/Minus Buttons
+        btnMatchPlus.x = centerX - 60;
+        btnMatchPlus.y = startY + boxH + 30;
         btnMatchPlus.display(p5);
+
+        btnMatchMinus.x = centerX + 10;
+        btnMatchMinus.y = startY + boxH + 30;
         btnMatchMinus.display(p5);
 
-
-        // Right Sidebar Stats
-        float rightX = p5.width - 250;
+        // RIGHT SIDE – Stats Panel
+        float rightX = p5.width - 250 - 20; // shifted slightly left for bigger buttons
         float sY = 50;
-        float gY = 80;
-        int txtSize = 20;
+        float gY = 100;
 
-        drawStatRow(p5, "Puntos", statsPuntos, rightX, sY, null); // Manual buttons for points
-        btnPointsPlus3.display(p5);
-        btnPointsPlus1.display(p5);
-        btnPointsMinus.display(p5);
+        drawStatRow(p5, "Puntos", statsPuntos, rightX, sY, null);
+        btnPointsPlus3.x = rightX + 60; btnPointsPlus3.y = sY; btnPointsPlus3.display(p5);
+        btnPointsPlus1.x = rightX + 115; btnPointsPlus1.y = sY; btnPointsPlus1.display(p5);
+        btnPointsMinus.x = rightX + 160; btnPointsMinus.y = sY; btnPointsMinus.display(p5);
 
         drawStatRow(p5, "Goles", statsGoles, rightX, sY + gY, null);
-        btnGoalsPlus.display(p5);
-        btnGoalsMinus.display(p5);
+        btnGoalsPlus.x = rightX + 80; btnGoalsPlus.y = sY + gY; btnGoalsPlus.display(p5);
+        btnGoalsMinus.x = rightX + 130; btnGoalsMinus.y = sY + gY; btnGoalsMinus.display(p5);
 
-        drawStatRow(p5, "Asistencias", statsAsistencias, rightX, sY + 2*gY, null);
-        btnAssistsPlus.display(p5);
-        btnAssistsMinus.display(p5);
+        drawStatRow(p5, "Asistencias", statsAsistencias, rightX, sY + 2 * gY, null);
+        btnAssistsPlus.x = rightX + 80; btnAssistsPlus.y = sY + 2 * gY; btnAssistsPlus.display(p5);
+        btnAssistsMinus.x = rightX + 130; btnAssistsMinus.y = sY + 2 * gY; btnAssistsMinus.display(p5);
 
-        drawStatRow(p5, "Amarillas", statsAmarillas, rightX, sY + 3*gY, null);
-        btnYellowPlus.display(p5);
-        btnYellowMinus.display(p5);
+        drawStatRow(p5, "Targetes amarillas", statsAmarillas, rightX, sY + 3 * gY, null);
+        btnYellowPlus.x = rightX + 80; btnYellowPlus.y = sY + 3 * gY; btnYellowPlus.display(p5);
+        btnYellowMinus.x = rightX + 130; btnYellowMinus.y = sY + 3 * gY; btnYellowMinus.display(p5);
 
-        drawStatRow(p5, "Rojas", statsRojas, rightX, sY + 4*gY, null);
-        btnRedPlus.display(p5);
-        btnRedMinus.display(p5);
+        drawStatRow(p5, "Targetes rojas", statsRojas, rightX, sY + 4 * gY, null);
+        btnRedPlus.x = rightX + 80; btnRedPlus.y = sY + 4 * gY; btnRedPlus.display(p5);
+        btnRedMinus.x = rightX + 130; btnRedMinus.y = sY + 4 * gY; btnRedMinus.display(p5);
     }
 
     void drawStatRow(PApplet p5, String label, int val, float x, float y, Botons[] btns){
         p5.fill(0);
         p5.textAlign(p5.LEFT, p5.BOTTOM);
-        p5.textSize(18);
-        p5.text(label, x, y);
+        p5.textSize(20);
+        p5.text(label, x, y - 5);
 
         p5.fill(255);
         p5.stroke(0);
-        p5.rect(x, y + 5, 50, 30);
+        p5.rectMode(0); // CORNER
+        p5.rect(x, y + 5, 60, 45);
 
         p5.fill(0);
         p5.textAlign(p5.CENTER, p5.CENTER);
-        p5.text(val, x + 25, y + 20);
+        p5.textSize(22);
+        p5.text(val, x + 30, y + 5 + 22.5f);
     }
 
     // Pantalla inicial interaccions
     public void checkMousePantallaInicial(PApplet p5){
+        // Layout calculations matching dibujoPantallaInicial exactly
+        float contentLeft = marginH + sidebarWidth;
+        float centerRight = p5.width - 280;
+        float centerW = centerRight - contentLeft;
+        float centerX = contentLeft + centerW / 2;
+        
+        float inputY = 150;
+        float bLoadY = inputY + 80;
+        float bSaveY = bLoadY + 60;
+        float imgY = bSaveY + 160;
+        
         // Match Counters Selection
-        float startX = (marginH + sidebarWidth + p5.width)/2 - 220;
-        float startY = 400;
-        float boxW = 100, boxH = 50;
+        float startY = imgY + 180;
+        float boxW = 120, boxH = 70;
+        float boxesTotalW = 4 * boxW + 3 * 10;
+        float startX = centerX - boxesTotalW / 2;
 
         for(int i=0; i<4; i++){
-            float bx = startX + i*110;
+            float bx = startX + i*(boxW + 10);
             if(p5.mouseX > bx && p5.mouseX < bx+boxW && p5.mouseY > startY && p5.mouseY < startY+boxH){
                 selectedMatchStat = i;
                 return; // Selected, done
