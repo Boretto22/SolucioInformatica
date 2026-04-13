@@ -221,7 +221,7 @@ public class    PlayCoach extends PApplet {
             appGUI.dataCalendari = appGUI.c.getSelectedDate();
         }
 
-        if (appGUI.bLoadImg.mouseOverButton(this)) {
+        if (appGUI.pantallaActual == GUI.PANTALLA.INICIAL && appGUI.bLoadImg.mouseOverButton(this)) {
             // Obrim el dialeg
             selectInput("Selecciona una imatge ...", "fileSelected");
         }

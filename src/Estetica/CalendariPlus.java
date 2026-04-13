@@ -31,13 +31,7 @@ public class CalendariPlus extends Calendari {
 
             super.display(p5);
 
-            if (dateSelected) {
-                String dateText = this.selectedDay+"/"+this.selectedMonth+"/"+this.selectedYear;
-                p5.fill(0);
-                p5.textSize(24);
-                p5.textAlign(p5.RIGHT);
-                p5.text(dateText, x+w, y - 30);
-            }
+
 
             // Dibuixa els botons
             bNext.display(p5);

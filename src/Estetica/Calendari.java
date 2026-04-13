@@ -14,8 +14,19 @@ public class Calendari {
     int dayOfWeek, firstDay;
 
     // Data seleccionada
-    boolean dateSelected = false;
-    int selectedDay=0, selectedMonth=0, selectedYear=0;
+    public java.util.ArrayList<String> selectedDates = new java.util.ArrayList<String>();
+
+    public boolean isDateSelected(int d, int m, int y){
+        return selectedDates.contains(d + "/" + m + "/" + y);
+    }
+    public void toggleSelectedDate(int d, int m, int y){
+        String val = d + "/" + m + "/" + y;
+        if(selectedDates.contains(val)){
+            selectedDates.remove(val);
+        } else {
+            selectedDates.add(val);
+        }
+    }
 
     // Calendari actual, i del mes anterior
     Calendar cal, cPrev;
@@ -59,10 +70,10 @@ public class Calendari {
 
     // Getters
     public boolean isDateSelected(){
-        return this.dateSelected;
+        return this.selectedDates.size() > 0;
     }
     public String getSelectedDate(){
-        return this.selectedDay +"/"+ this.selectedMonth + "/"+ this.selectedYear;
+        return String.join(", ", this.selectedDates);
     }
 
 
@@ -81,9 +92,10 @@ public class Calendari {
     }
 
     public void setSelectedDate(int d, int m, int y){
-        this.selectedDay = d;
-        this.selectedMonth = m;
-        this.selectedYear = y;
+        String val = d + "/" + m + "/" + y;
+        if(!selectedDates.contains(val)){
+            selectedDates.add(val);
+        }
     }
 
     // Va un mes enrera en el Calendari
@@ -131,6 +143,7 @@ public class Calendari {
                 }
                 for(int c=cPrev; c<7; c++){
                     buttons[nb] = new DayButtons(x + c*dayWidth, y + f*dayHeight, dayWidth, dayHeight, numDia, mes, any);
+                    buttons[nb].setSelected(isDateSelected(numDia, mes, any));
                     numDia++; nb++;
                 }
                 f++;
@@ -138,6 +151,7 @@ public class Calendari {
             else {
                 for(int c=0; c<7; c++){
                     buttons[nb] = new DayButtons(x + c*dayWidth, y + f*dayHeight, dayWidth, dayHeight, numDia, mes, any);
+                    buttons[nb].setSelected(isDateSelected(numDia, mes, any));
                     numDia++; nb++;
                     if(numDia>numDaysMonth){ break; }
                 }
@@ -187,8 +201,8 @@ public class Calendari {
             }
         }
 
-        if(dateSelected){
-            String dateText = this.selectedDay+"/"+this.selectedMonth+"/"+this.selectedYear;
+        if(selectedDates.size() > 0){
+            String dateText = (selectedDates.size() == 1) ? selectedDates.get(0) : selectedDates.size() + " days selected";
             p5.fill(0); p5.textSize(24); p5.textAlign(p5.RIGHT);
             p5.text(dateText, x+w, y - 30);
         }
@@ -200,16 +214,8 @@ public class Calendari {
     public  void checkButtons(PApplet p5){
         for(DayButtons b : buttons){
             if((b!=null)&&(b.enabled)&&(b.mouseOver(p5))){
-                boolean prevState = b.selected;
-                deselectAll();
-                b.setSelected(!prevState);
-                if(b.selected){
-                    dateSelected = true;
-                    setSelectedDate(b.dia,b.mes,b.any);
-                }
-                else {
-                    dateSelected = false;
-                }
+                toggleSelectedDate(b.dia, b.mes, b.any);
+                b.setSelected(!b.selected);
             }
         }
     }

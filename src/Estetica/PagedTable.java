@@ -87,17 +87,17 @@ public class PagedTable {
         }
 
         // Dibuixa textos
-        p5.fill(0); p5.textSize(24);
+        p5.fill(0); p5.textSize(44);
         for(int r = 0; r < numRows; r++){
             xCol = x;
             for(int c = 0; c< numCols; c++){
                 if(r==0){
-                    p5.text(tableHeaders[c], xCol + 10, y + (r+1)*rowHeight - 10);
+                    p5.text(tableHeaders[c], xCol + 55, y + (r+1)*rowHeight - 40);
                 }
                 else{
                     int k = (numRows-1)*numPage + (r-1);
                     if(k<tableData.length){
-                        p5.text(tableData[k][c], xCol + 10, y + (r+1)*rowHeight - 10);
+                        p5.text(tableData[k][c], xCol + 55, y + (r+1)*rowHeight - 40);
                     }
                 }
                 xCol += w*columnWidths[c]/100.0;
@@ -106,7 +106,7 @@ public class PagedTable {
 
         // Informació de la Pàgina
         p5.fill(0);
-        p5.text("Pag: "+(this.numPage+1)+" / "+(this.numTotalPages+1), x, y + h + 50);
+        p5.text("Pag: "+(this.numPage+1)+" / "+(this.numTotalPages+1), x + 45, y + h + 20);
 
         p5.popStyle();
     }
