@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8923a238-6649-4ad7-82aa-17c3b9a5060a" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/Data/Jugadas/conoAzul.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Jugadas/conoRojo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/fondoPantalla.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/Calendari.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Calendari.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/CalendariPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/CalendariPlus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/DraggableImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/DraggableImage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Estetica/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Estetica/PagedTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/PagedTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayCoach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayCoach.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Estetica/Paleta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/Paleta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Estetica/TacticalArrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Estetica/TacticalArrow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayCoach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainApp/PlayCoach.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Servidor/DataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Servidor/DataBase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,14 +78,17 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\mirot\Desktop\Informàtica\SolucioInformatica\Data\Jugadas" />
       <recent name="C:\Users\mirot\Desktop\Informàtica\SolucioInformatica\Data" />
+      <recent name="C:\Users\mirot\Desktop\Informàtica\SolucioInformatica\Data\Jugadas" />
       <recent name="C:\Users\mirot\Desktop\Informàtica\SolucioInformatica" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
     </key>
   </component>
   <component name="RunManager">
     <configuration name="PlayCoach" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="PlayCoach" />
+      <option name="MAIN_CLASS_NAME" value="MainApp.PlayCoach" />
       <module name="SolucioInformatica" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -477,7 +477,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775063037358</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary=".">
+      <option name="closed" value="true" />
+      <created>1776097045278</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1776097045278</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

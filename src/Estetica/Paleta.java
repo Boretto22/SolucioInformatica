@@ -14,16 +14,16 @@ public class Paleta {
     public void setColors(PApplet p5){
         this.colors = new int[20];
         this.colors[0] = p5.color(0xFFF8FAFC); //pantalla fondo
-        this.colors[1] = p5.color(0xFFA9D600); //botons pressed
-        this.colors[2] = p5.color(0xFFC9FF00); //botons
+        this.colors[1] = p5.color(0xFFA9D600); //botones pressed
+        this.colors[2] = p5.color(0xFFC9FF00); //botones
         this.colors[3] = p5.color(0xFF999999); //gris
         this.colors[4] = p5.color(0xFF1A1A1A); //sidebar
-        this.colors[5] = p5.color(0xFFE0E0E0); //blanc
-        this.colors[6] = p5.color(0xFFC9FF00); // botons sidebar
-        this.colors[7] = p5.color(0xFFA9D600); // boto pressed sidebar
-        this.colors[8] = p5.color(0xFF000000); //negre
-        this.colors[9] = p5.color(0xFFE05034); //vermell
-        this.colors[10] = p5.color(0xFFED7966); //vermell clar
+        this.colors[5] = p5.color(0xFFE0E0E0); //blanco
+        this.colors[6] = p5.color(0xFFC9FF00); // botones sidebar
+        this.colors[7] = p5.color(0xFFA9D600); // boton pressed sidebar
+        this.colors[8] = p5.color(0xFF000000); //negro
+        this.colors[9] = p5.color(0xFFE05034); //rojo
+        this.colors[10] = p5.color(0xFFED7966); //rojo claro
 
     }
 

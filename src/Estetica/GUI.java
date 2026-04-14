@@ -1,9 +1,13 @@
 package Estetica;
 import static Estetica.Medida.*;
-
+import MainApp.PlayCoach;
 import processing.core.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class GUI{
+
+    PApplet p5App;
 
     PFont pFont1;
 
@@ -22,6 +26,7 @@ public class GUI{
     //VARIABLES PANTALLA INICIAL (Redesign)
     public Text_Field nombreEquipoTextField;
     public String currentUserNombre = "";
+    public boolean statsLoaded = false;
 
     // Counters
     public int pj = 0, pg = 0, pe = 0, pp = 0;
@@ -61,6 +66,7 @@ public class GUI{
     public int currentJugada = 0;
     public boolean eraserMode = false;
     public Botons btnEraser;
+    public Botons bGuardarAlerta;
 
     // Resource Panel
     String[] resourceFiles = {"Jugador 1.png", "Jugador 2.png", "Porter.png", "Aro.png", "Escalera.png", "conoAzul.png", "conoRojo.png", "porteria.png"};
@@ -130,6 +136,8 @@ public class GUI{
 
     public GUI(PApplet p5){
 
+        this.p5App = p5;
+
         logo = p5.loadImage("LogoApp.png");
         logoPantalles = p5.loadImage("Logo.png");
         house = p5.loadShape("house-solid-full.svg");
@@ -179,7 +187,7 @@ public class GUI{
 
         text1 = new Text_Field(p5, p5.width/2-400, p5.height/2+200, 400,100);
         text2 = new Text_Field(p5, p5.width/2+25, p5.height/2+200, 400, 100);
-        textAlert = new Text_Field(p5, p5.width/2-350, p5.height/2-350, 1000,800);
+        textAlert = new Text_Field(p5, p5.width/2-450, p5.height/2-350, 1000,800);
         textAlert.setBackgroundColor(paleta.getColorAt(9));
         textAlert.setLimit(1000);
         textAlert.setMultiline(true);
@@ -207,7 +215,7 @@ public class GUI{
 
         // INIT PANTALLA INICIAL
         // Header
-        nombreEquipoTextField = new Text_Field(p5, 340, 20, 300, 50);
+        nombreEquipoTextField = new Text_Field(p5, 340, 20, 100, 50);
         nombreEquipoTextField.setText("Nombre del Equipo");
         // Image Container reuses bLoadImg, positioned later in dibujoPantallaInicial or updated here?
         bLoadImg = new Botons(p5, "Load Image", p5.width/2 - 50, 200, 100, 40);
@@ -243,6 +251,9 @@ public class GUI{
         // Rojas
         btnRedPlus = new Botons(p5, "+", rightX + 80, startY + 4*gapY, 50, 50);
         btnRedMinus = new Botons(p5, "-", rightX + 140, startY + 4*gapY, 50, 50);
+
+        // Guardar alerta
+        bGuardarAlerta = new Botons(p5, "Guardar alerta", textAlert.x + textAlert.w + 10, textAlert.y, 300, 70);
     }
     //Pantalles GUI
 
@@ -265,6 +276,9 @@ public class GUI{
     }
 
     public void dibujoPantallaInicial(PApplet p5){
+        if(!statsLoaded) {
+            loadUserStats();
+        }
         p5.imageMode(PConstants.CORNER);
         p5.image(fondoPantalla, 0, 0, p5.width, p5.height);
         logoPantallas(p5, logoPantalles);
@@ -275,132 +289,149 @@ public class GUI{
         b7.display(p5);
         b8.display(p5);
 
-        // Center-Left Area Layout
-        float contentLeft = marginH + sidebarWidth;
-        float centerRight = p5.width - 280; // Leaving space for the right panel
-        float centerW = centerRight - contentLeft;
+        // ============ LAYOUT ============
+        float contentLeft = marginH + sidebarWidth + 40;   // donde empieza la zona central
+        float rightPanelX = p5.width - 380;                 // donde empieza el panel derecho
+        float centerW = rightPanelX - contentLeft - 30;
         float centerX = contentLeft + centerW / 2;
 
-        // 1. Text Field
-        nombreEquipoTextField.x = (int)contentLeft + 50;
-        nombreEquipoTextField.y = 150;
-        nombreEquipoTextField.w = (int)centerW - 100;
+        // 1. NOMBRE DEL EQUIPO (arriba centrado en la zona central)
+        p5.fill(255);
+        p5.textAlign(p5.LEFT);
+        p5.textSize(24);
+        p5.text("NOMBRE EQUIPO", contentLeft, 120);
+
+        nombreEquipoTextField.x = (int)contentLeft;
+        nombreEquipoTextField.y = 140;
+        nombreEquipoTextField.w = 400;
+        nombreEquipoTextField.h = 60;
         nombreEquipoTextField.display(p5);
 
-        p5.fill(0);
-        p5.textAlign(p5.LEFT);
-        p5.textSize(16);
-        p5.text("Nombre del equipo", nombreEquipoTextField.x, nombreEquipoTextField.y - 5);
-
-        // 2. LOAD IMG and SAVE buttons
-        bLoadImg.x = nombreEquipoTextField.x;
-        bLoadImg.y = nombreEquipoTextField.y + 80;
-        bLoadImg.w = 150;
+        // 2. BOTONES LOAD IMAGE y SAVE (debajo del nombre del equipo, a la izquierda)
+        bLoadImg.x = contentLeft;
+        bLoadImg.y = 240;
+        bLoadImg.w = 200;
+        bLoadImg.h = 60;
         bLoadImg.display(p5);
 
-        bSave.x = bLoadImg.x;
-        bSave.y = bLoadImg.y + 60;
-        bSave.w = 150;
+        bSave.x = contentLeft;
+        bSave.y = 320;
+        bSave.w = 200;
+        bSave.h = 60;
         bSave.display(p5);
 
-        // 3. Foto Square (Larger, tighter to buttons)
-        float imgY = bSave.y + 160; 
+        // 3. FOTO (cuadrado grande a la derecha de los botones)
+        float fotoSize = 350;
+        float fotoX = centerX + 50;
+        float fotoY = 220 + fotoSize / 2;
+
         p5.noFill();
-        p5.stroke(0);
-        p5.rectMode(3); // CENTER
-        p5.rect(centerX, imgY, 200, 200);
-        
+        p5.stroke(255);
+        p5.strokeWeight(2);
+        p5.rectMode(PConstants.CENTER);
+        p5.rect(fotoX, fotoY, fotoSize, fotoSize);
+
         if (loadImage != null) {
-            p5.imageMode(3); // CENTER
-            p5.image(loadImage, centerX, imgY, 190, 190);
+            p5.imageMode(PConstants.CENTER);
+            p5.image(loadImage, fotoX, fotoY, fotoSize - 10, fotoSize - 10);
         } else {
-            p5.fill(0);
+            p5.fill(255);
             p5.textAlign(p5.CENTER, p5.CENTER);
-            p5.textSize(20);
-            p5.text("Foto", centerX, imgY);
+            p5.textSize(40);
+            p5.text("FOTO", fotoX, fotoY);
         }
-        p5.rectMode(0); // CORNER
-        
-        // 4. Nombre Text
-        p5.fill(0);
+        p5.rectMode(PConstants.CORNER);
+
+        // 4. NOMBRE USUARIO (debajo de la foto)
+        p5.fill(255);
         p5.textAlign(p5.CENTER, p5.TOP);
         p5.textSize(24);
-        p5.text(currentUserNombre, centerX, imgY + 90);
+        p5.text(currentUserNombre.isEmpty() ? "NOMBRE USUARIO" : currentUserNombre,
+                fotoX, fotoY + fotoSize/2 + 15);
 
-        // 5. Match Counters (PJ, PG, PE, PP)
-        float startY = imgY + 180;
-        float boxW = 120, boxH = 70;
-        // Center the 4 boxes relatively to the center width
-        float boxesTotalW = 4 * boxW + 3 * 10; // 10px spacing
-        float startX = centerX - boxesTotalW / 2;
+        // 5. CONTADORES P.J / P.G / P.E / P.P (abajo, fila horizontal)
+        float counterY = fotoY + fotoSize/2 + 80;
+        float boxW = 180, boxH = 60;
+        float totalW = 4 * boxW + 3 * 20;
+        float startX = centerX - totalW / 2;
 
         String[] headers = {"P.J", "P.G", "P.E", "P.P"};
         int[] values = {pj, pg, pe, pp};
 
-        p5.textSize(20);
-
+        p5.strokeWeight(2);
         for (int i = 0; i < 4; i++) {
-            float bx = startX + i * (boxW + 10);
+            float bx = startX + i * (boxW + 20);
 
-            // Header
-            p5.fill(0);
-            p5.textAlign(p5.CENTER, p5.BOTTOM);
-            p5.text(headers[i], bx + boxW / 2, startY - 5);
-
-            // Box
-            if (selectedMatchStat == i) p5.strokeWeight(4); else p5.strokeWeight(1);
+            // Título
             p5.fill(255);
-            p5.rect(bx, startY, boxW, boxH);
+            p5.textAlign(p5.LEFT, p5.BOTTOM);
+            p5.textSize(22);
+            p5.text(headers[i], bx, counterY - 5);
 
-            // Value (showing 0 instead of infinity symbol to stick to standard integer display)
+            // Caja
+            if (selectedMatchStat == i) p5.strokeWeight(4);
+            else p5.strokeWeight(2);
+            p5.stroke(255);
+            p5.fill(255);
+            p5.rect(bx, counterY, boxW, boxH);
+
+            // Valor
             p5.fill(0);
             p5.textAlign(p5.CENTER, p5.CENTER);
-            p5.text(values[i] == 0 ? "00" : String.valueOf(values[i]), bx + boxW / 2, startY + boxH / 2);
-            
-            // Vertical Divider
-            if (i < 3) {
-                p5.strokeWeight(1);
-                p5.stroke(0);
-                float lineX = bx + boxW + 5;
-                p5.line(lineX, startY - 20, lineX, startY + boxH + 20);
-            }
+            p5.textSize(28);
+            p5.text(String.valueOf(values[i]), bx + boxW / 2, counterY + boxH / 2);
         }
         p5.strokeWeight(1);
 
-        // 6. Plus/Minus Buttons
+        // 6. BOTONES + / - para contadores de partidos (debajo, centrados)
         btnMatchPlus.x = centerX - 60;
-        btnMatchPlus.y = startY + boxH + 30;
+        btnMatchPlus.y = counterY + boxH + 30;
+        btnMatchPlus.w = 50;
+        btnMatchPlus.h = 50;
         btnMatchPlus.display(p5);
 
         btnMatchMinus.x = centerX + 10;
-        btnMatchMinus.y = startY + boxH + 30;
+        btnMatchMinus.y = counterY + boxH + 30;
+        btnMatchMinus.w = 50;
+        btnMatchMinus.h = 50;
         btnMatchMinus.display(p5);
 
-        // RIGHT SIDE – Stats Panel
-        float rightX = p5.width - 250 - 20; // shifted slightly left for bigger buttons
-        float sY = 50;
-        float gY = 100;
+        // ============ PANEL DERECHO: ESTADÍSTICAS ============
+        float rightX = rightPanelX;
+        float sY = 80;
+        float gapY = 110;
 
-        drawStatRow(p5, "Puntos", statsPuntos, rightX, sY, null);
-        btnPointsPlus3.x = rightX + 60; btnPointsPlus3.y = sY; btnPointsPlus3.display(p5);
-        btnPointsPlus1.x = rightX + 115; btnPointsPlus1.y = sY; btnPointsPlus1.display(p5);
-        btnPointsMinus.x = rightX + 160; btnPointsMinus.y = sY; btnPointsMinus.display(p5);
+        drawStatRowWhite(p5, "PUNTOS", statsPuntos, rightX, sY);
+        btnPointsPlus3.x = rightX + 130; btnPointsPlus3.y = sY + 20; btnPointsPlus3.w = 55; btnPointsPlus3.h = 50;
+        btnPointsPlus3.display(p5);
+        btnPointsPlus1.x = rightX + 190; btnPointsPlus1.y = sY + 20; btnPointsPlus1.w = 55; btnPointsPlus1.h = 50;
+        btnPointsPlus1.display(p5);
+        btnPointsMinus.x = rightX + 250; btnPointsMinus.y = sY + 20; btnPointsMinus.w = 50; btnPointsMinus.h = 50;
+        btnPointsMinus.display(p5);
 
-        drawStatRow(p5, "Goles", statsGoles, rightX, sY + gY, null);
-        btnGoalsPlus.x = rightX + 80; btnGoalsPlus.y = sY + gY; btnGoalsPlus.display(p5);
-        btnGoalsMinus.x = rightX + 130; btnGoalsMinus.y = sY + gY; btnGoalsMinus.display(p5);
+        drawStatRowWhite(p5, "GOLES", statsGoles, rightX, sY + gapY);
+        btnGoalsPlus.x = rightX + 130; btnGoalsPlus.y = sY + gapY + 20; btnGoalsPlus.w = 55; btnGoalsPlus.h = 50;
+        btnGoalsPlus.display(p5);
+        btnGoalsMinus.x = rightX + 195; btnGoalsMinus.y = sY + gapY + 20; btnGoalsMinus.w = 50; btnGoalsMinus.h = 50;
+        btnGoalsMinus.display(p5);
 
-        drawStatRow(p5, "Asistencias", statsAsistencias, rightX, sY + 2 * gY, null);
-        btnAssistsPlus.x = rightX + 80; btnAssistsPlus.y = sY + 2 * gY; btnAssistsPlus.display(p5);
-        btnAssistsMinus.x = rightX + 130; btnAssistsMinus.y = sY + 2 * gY; btnAssistsMinus.display(p5);
+        drawStatRowWhite(p5, "ASISTENCIAS", statsAsistencias, rightX, sY + 2 * gapY);
+        btnAssistsPlus.x = rightX + 130; btnAssistsPlus.y = sY + 2 * gapY + 20; btnAssistsPlus.w = 55; btnAssistsPlus.h = 50;
+        btnAssistsPlus.display(p5);
+        btnAssistsMinus.x = rightX + 195; btnAssistsMinus.y = sY + 2 * gapY + 20; btnAssistsMinus.w = 50; btnAssistsMinus.h = 50;
+        btnAssistsMinus.display(p5);
 
-        drawStatRow(p5, "Targetes amarillas", statsAmarillas, rightX, sY + 3 * gY, null);
-        btnYellowPlus.x = rightX + 80; btnYellowPlus.y = sY + 3 * gY; btnYellowPlus.display(p5);
-        btnYellowMinus.x = rightX + 130; btnYellowMinus.y = sY + 3 * gY; btnYellowMinus.display(p5);
+        drawStatRowWhite(p5, "TARJETAS AMARILLAS", statsAmarillas, rightX, sY + 3 * gapY);
+        btnYellowPlus.x = rightX + 130; btnYellowPlus.y = sY + 3 * gapY + 20; btnYellowPlus.w = 55; btnYellowPlus.h = 50;
+        btnYellowPlus.display(p5);
+        btnYellowMinus.x = rightX + 195; btnYellowMinus.y = sY + 3 * gapY + 20; btnYellowMinus.w = 50; btnYellowMinus.h = 50;
+        btnYellowMinus.display(p5);
 
-        drawStatRow(p5, "Targetes rojas", statsRojas, rightX, sY + 4 * gY, null);
-        btnRedPlus.x = rightX + 80; btnRedPlus.y = sY + 4 * gY; btnRedPlus.display(p5);
-        btnRedMinus.x = rightX + 130; btnRedMinus.y = sY + 4 * gY; btnRedMinus.display(p5);
+        drawStatRowWhite(p5, "TARJETAS ROJAS", statsRojas, rightX, sY + 4 * gapY);
+        btnRedPlus.x = rightX + 130; btnRedPlus.y = sY + 4 * gapY + 20; btnRedPlus.w = 55; btnRedPlus.h = 50;
+        btnRedPlus.display(p5);
+        btnRedMinus.x = rightX + 195; btnRedMinus.y = sY + 4 * gapY + 20; btnRedMinus.w = 50; btnRedMinus.h = 50;
+        btnRedMinus.display(p5);
     }
 
     void drawStatRow(PApplet p5, String label, int val, float x, float y, Botons[] btns){
@@ -420,34 +451,54 @@ public class GUI{
         p5.text(val, x + 30, y + 5 + 22.5f);
     }
 
+    void drawStatRowWhite(PApplet p5, String label, int val, float x, float y){
+        // Título en blanco
+        p5.fill(255);
+        p5.textAlign(p5.LEFT, p5.BOTTOM);
+        p5.textSize(20);
+        p5.text(label, x, y + 15);
+
+        // Caja de valor
+        p5.fill(255);
+        p5.stroke(255);
+        p5.strokeWeight(2);
+        p5.rectMode(PConstants.CORNER);
+        p5.rect(x, y + 20, 110, 50);
+
+        // Valor en negro sobre fondo blanco
+        p5.fill(0);
+        p5.textAlign(p5.CENTER, p5.CENTER);
+        p5.textSize(26);
+        p5.text(val, x + 55, y + 45);
+        p5.strokeWeight(1);
+    }
+
     // Pantalla inicial interaccions
     public void checkMousePantallaInicial(PApplet p5){
-        // Layout calculations matching dibujoPantallaInicial exactly
-        float contentLeft = marginH + sidebarWidth;
-        float centerRight = p5.width - 280;
-        float centerW = centerRight - contentLeft;
+        float contentLeft = marginH + sidebarWidth + 40;
+        float rightPanelX = p5.width - 380;
+        float centerW = rightPanelX - contentLeft - 30;
         float centerX = contentLeft + centerW / 2;
-        
-        float inputY = 150;
-        float bLoadY = inputY + 80;
-        float bSaveY = bLoadY + 60;
-        float imgY = bSaveY + 160;
-        
-        // Match Counters Selection
-        float startY = imgY + 180;
-        float boxW = 120, boxH = 70;
-        float boxesTotalW = 4 * boxW + 3 * 10;
-        float startX = centerX - boxesTotalW / 2;
 
-        for(int i=0; i<4; i++){
-            float bx = startX + i*(boxW + 10);
-            if(p5.mouseX > bx && p5.mouseX < bx+boxW && p5.mouseY > startY && p5.mouseY < startY+boxH){
+        float fotoSize = 350;
+        float fotoY = 220 + fotoSize / 2;
+        float counterY = fotoY + fotoSize/2 + 80;
+
+        float boxW = 180, boxH = 60;
+        float totalW = 4 * boxW + 3 * 20;
+        float startX = centerX - totalW / 2;
+
+        // Selección de P.J / P.G / P.E / P.P
+        for(int i = 0; i < 4; i++){
+            float bx = startX + i*(boxW + 20);
+            if(p5.mouseX > bx && p5.mouseX < bx+boxW &&
+                    p5.mouseY > counterY && p5.mouseY < counterY+boxH){
                 selectedMatchStat = i;
-                return; // Selected, done
+                return;
             }
         }
 
-        // Match Buttons
+        // Botones +/- partidos
         if(btnMatchPlus.mouseOverButton(p5)){
             if(selectedMatchStat == 0) pj++;
             else if(selectedMatchStat == 1) pg++;
@@ -455,32 +506,91 @@ public class GUI{
             else if(selectedMatchStat == 3) pp++;
         }
         if(btnMatchMinus.mouseOverButton(p5)){
-            if(selectedMatchStat == 0) pj--;
-            else if(selectedMatchStat == 1) pg--;
-            else if(selectedMatchStat == 2) pe--;
-            else if(selectedMatchStat == 3) pp--;
+            if(selectedMatchStat == 0 && pj > 0) pj--;
+            else if(selectedMatchStat == 1 && pg > 0) pg--;
+            else if(selectedMatchStat == 2 && pe > 0) pe--;
+            else if(selectedMatchStat == 3 && pp > 0) pp--;
         }
 
-        // Right Sidebar Buttons
+        // Panel derecho — estadísticas
         if(btnPointsPlus3.mouseOverButton(p5)) statsPuntos += 3;
         if(btnPointsPlus1.mouseOverButton(p5)) statsPuntos += 1;
-        if(btnPointsMinus.mouseOverButton(p5)) statsPuntos--;
+        if(btnPointsMinus.mouseOverButton(p5) && statsPuntos > 0) statsPuntos--;
 
         if(btnGoalsPlus.mouseOverButton(p5)) statsGoles++;
-        if(btnGoalsMinus.mouseOverButton(p5)) statsGoles--;
+        if(btnGoalsMinus.mouseOverButton(p5) && statsGoles > 0) statsGoles--;
 
         if(btnAssistsPlus.mouseOverButton(p5)) statsAsistencias++;
-        if(btnAssistsMinus.mouseOverButton(p5)) statsAsistencias--;
+        if(btnAssistsMinus.mouseOverButton(p5) && statsAsistencias > 0) statsAsistencias--;
 
         if(btnYellowPlus.mouseOverButton(p5)) statsAmarillas++;
-        if(btnYellowMinus.mouseOverButton(p5)) statsAmarillas--;
+        if(btnYellowMinus.mouseOverButton(p5) && statsAmarillas > 0) statsAmarillas--;
 
         if(btnRedPlus.mouseOverButton(p5)) statsRojas++;
-        if(btnRedMinus.mouseOverButton(p5)) statsRojas--;
+        if(btnRedMinus.mouseOverButton(p5) && statsRojas > 0) statsRojas--;
 
-        // Text Field
+        // Text Field nombre del equipo
         nombreEquipoTextField.isPressed(p5);
+    }
 
+    public void loadUserStats() {
+        if (PlayCoach.sessionUserID == null || PlayCoach.sessionUserID.isEmpty()) return;
+        
+        try {
+            String query = "SELECT * FROM estadisticas WHERE Usuario_ID = ? ";
+            PreparedStatement pstmt = PlayCoach.db.getConnection().prepareStatement(query);
+            pstmt.setString(1, PlayCoach.sessionUserID);
+            
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                statsPuntos = rs.getInt("Puntos");
+                statsGoles = rs.getInt("Goles");
+                statsAsistencias = rs.getInt("Assistencias");
+                pj = rs.getInt("PJ");
+                pg = rs.getInt("PG");
+                pe = rs.getInt("PE");
+                pp = rs.getInt("PP");
+                statsRojas = rs.getInt("T_Rojas");
+                statsAmarillas = rs.getInt("T_Amarillas");
+            } else {
+                statsPuntos = 0; statsGoles = 0; statsAsistencias = 0;
+                pj = 0; pg = 0; pe = 0; pp = 0;
+                statsRojas = 0; statsAmarillas = 0;
+            }
+            rs.close();
+            pstmt.close();
+            statsLoaded = true;
+
+            // Cargar también la foto del usuario
+            String nombreFoto = MainApp.PlayCoach.db.getFotoUsuario(MainApp.PlayCoach.sessionUserID);
+            if (nombreFoto != null && !nombreFoto.isEmpty()) {
+                try {
+                    loadImage = p5App.loadImage("fotos/" + nombreFoto);
+                    titol = nombreFoto;
+                } catch (Exception ex) {
+                    System.out.println("ERROR al cargar foto: " + nombreFoto);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error loading stats: " + e);
+        }
+    }
+
+    public void saveUserStats() {
+        String usuarioID = MainApp.PlayCoach.sessionUserID;
+        if (usuarioID == null || usuarioID.isEmpty()) {
+            System.out.println("ERROR: no hay usuario en sesión.");
+            return;
+        }
+
+        String nombreEquipo = nombreEquipoTextField.getText();
+
+        // Año: usamos el año actual automáticamente (no hay campo en la UI)
+        int año = java.time.Year.now().getValue();
+
+        MainApp.PlayCoach.db.guardarEstadisticas(usuarioID, nombreEquipo,
+                año, statsPuntos, statsGoles, statsAsistencias,
+                pj, pg, pe, pp, statsRojas, statsAmarillas);
     }
 
     public void dibujoPantallaCalendar(PApplet p5){
@@ -731,6 +841,7 @@ public class GUI{
         b6.display(p5);
         b7.display(p5);
         b8.display(p5);
+        bGuardarAlerta.display(p5);
         textAlert.display(p5);
     }
 

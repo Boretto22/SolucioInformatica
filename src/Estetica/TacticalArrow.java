@@ -24,7 +24,7 @@ public class TacticalArrow {
         p5.strokeWeight(3);
         p5.fill(color);
 
-        // Draw line
+        // Dibujar flecha
         p5.line(start.x, start.y, end.x, end.y);
 
         // Draw arrowhead

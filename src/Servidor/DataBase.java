@@ -137,80 +137,6 @@ public class DataBase {
         return 0;
     }
 
-    // Retorna les dades (enunaciat, opcions i correcte) de totes les preguntes de dificultat 2
-    public String[][] getInfoPreguntaDificil(){
-        String qNF = "SELECT COUNT(*) AS num FROM pregunta WHERE dificultat='2' ";
-        int nf = getNumFilesMatchQuery(qNF);
-        String[][] info = new String[nf][5];
-        String q = " SELECT enunciat, opcioA, opcioB, opcioC, correcte " +
-                " FROM pregunta " +
-                " WHERE dificultat = '2' ";
-        System.out.println(q);
-        try {
-            ResultSet rs = query.executeQuery(q);
-            int n = 0;
-            while(rs.next()){
-                info[n][0] = rs.getString("enunciat");
-                info[n][1] = rs.getString("opcioA");
-                info[n][2] = rs.getString("opcioB");
-                info[n][3] = rs.getString("opcioC");
-                info[n][4] = rs.getString("correcte");
-                n++;
-            }
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-        return info;
-    }
-
-    // Retorna dades de dues taules relacionades
-    public String[][] getInfoPreguntesUnitats(){
-        String qNF = " SELECT COUNT(*) AS num " +
-                " FROM pregunta p, unitat u " +
-                " WHERE p.unitat = u.numero ";
-        int nf = getNumFilesMatchQuery(qNF);
-        String[][] info = new String[nf][2];
-
-        String q = " SELECT p.enunciat, u.nom " +
-                " FROM pregunta p, unitat u " +
-                " WHERE p.unitat = u.numero ";
-
-        System.out.println(q);
-        try{
-            ResultSet rs = query.executeQuery(q);
-            int n=0;
-            while(rs.next()){
-                info[n][0] = rs.getString("p.enunciat");
-                info[n][1] = rs.getString("u.nom");
-                n++;
-            }
-
-        }catch(Exception e){
-            System.out.println(e);
-        }
-
-        return info;
-    }
-
-
-    // Retorna el càlcul (MAX) sobre una columna numèrica (punts) d'una taula ( puntuacio).
-
-    public int getMaxPuntuacioUsuari(String nomUsuari){
-        String q = " SELECT MAX(punts) AS maxima " +
-                " FROM puntuacio " +
-                " WHERE persona = '" + nomUsuari + "' ";
-        System.out.println(q);
-        try{
-            ResultSet rs = query.executeQuery(q);
-            rs.next();
-            return rs.getInt("maxima");
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-        return 0;
-    }
 
     // Retorna true si el nom d'usuari i password estan a la taula (usuario)
     public boolean isUserOk(String nom, String password){
@@ -315,37 +241,6 @@ public class DataBase {
         }
     }
 
-    // Retorna el número de files que retornaria una query SELECT qualsevol amb valor "n"
-    // Per exemple: SELECT COUNT(*) AS n FROM ...
-    public int getNumRowsQuery(String q){
-        try {
-            ResultSet rs = query.executeQuery( q);
-            rs.next();
-            return rs.getInt("n");
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            return 0;
-        }
-    }
-
-    // Retorna el número de columnes d'una taula de la base de dades
-    public int getNumColsTaula(String nomTaula){
-        try {
-            String q = "SELECT count(*) as n FROM information_schema.columns WHERE table_name ='"+ nomTaula +"' AND table_schema='"+databaseName+"'";
-            System.out.println(q);
-            ResultSet rs = query.executeQuery( q);
-            rs.next();
-            int numCols = rs.getInt("n");
-            return numCols;
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            return 0;
-        }
-    }
-
-
 
     // Retorna totes les dades d'una taula en concret
     public String[][] getInfoTaulaUnitat(){
@@ -365,153 +260,6 @@ public class DataBase {
         catch(Exception e) {
             System.out.println(e);
             return null;
-        }
-    }
-
-    // Retorna les dades bidimensionals d'una query en concret (Dades de les unitats d'un curs en concret).
-    public String[][] getInfoTaulaUnitatCurs(int curs){
-        int numFiles = getNumRowsQuery("SELECT COUNT(*) AS n FROM unitat WHERE curs = '"+curs+"'");
-        int numCols  = 3;
-        String[][] info = new String[numFiles][numCols];
-        try {
-            ResultSet rs = query.executeQuery( "SELECT numero, nom, curs FROM unitat WHERE curs= '"+curs+"'");
-            int nr = 0;
-            while (rs.next()) {
-                info[nr][0] = String.valueOf(rs.getInt("numero"));
-                info[nr][1] = rs.getString("nom");
-                info[nr][2] = String.valueOf(rs.getInt("curs"));
-                nr++;
-            }
-            return info;
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    // Retorna les dades unidimensionals d'una query en concret (Cursos diferents)
-    public String[] getInfoColumnaCursTaulaUnitat(){
-        int numFiles = getNumRowsQuery("SELECT COUNT(DISTINCT curs) AS n FROM unitat");
-        String[] info = new String[numFiles];
-        try {
-            ResultSet rs = query.executeQuery( "SELECT DISTINCT(curs) AS curs FROM unitat");
-            int nr = 0;
-            while (rs.next()) {
-                info[nr] = rs.getString("curs");
-                nr++;
-            }
-            return info;
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    // Retorna les dades de la columna NOM de la taula UNITAT
-    public String[] getColumnaNomTaulaUnitat(){
-        int numFiles = getNumRowsTaula("unitat");
-        String[] info = new String[numFiles];
-        try {
-            ResultSet rs = query.executeQuery( "SELECT nom FROM unitat ORDER BY nom ASC");
-            int nr = 0;
-            while (rs.next()) {
-                info[nr] = rs.getString("nom");
-                nr++;
-            }
-            return info;
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    // Retorna el valor de la Columna NUMERO de la taula UNITAT per aquella fila amb NOM
-    public String getNumeroFromTaulaUnitat(String nom)  {
-        try {
-            ResultSet rs = query.executeQuery( "SELECT numero FROM unitat WHERE nom = '"+nom+"'");
-            rs.next();
-            return String.valueOf(rs.getInt("numero"));
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-
-    public boolean isValidUser(String userName, String password){
-        String q = "SELECT COUNT(*) AS n FROM usuario WHERE nom = '"+userName+"' AND password='"+password+"'";
-        try {
-            ResultSet rs = query.executeQuery( q);
-            rs.next();
-            return rs.getInt("n")==1;
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            return false;
-        }
-    }
-
-    public String getClaveFromTabla(String nombreTable, String nombreClave, String nombreColumna, String valorColumna){
-        try {
-            String q = "SELECT "+nombreClave+" AS clave FROM "+nombreTable+" WHERE "+nombreColumna+"='"+valorColumna+"'";
-            ResultSet rs = query.executeQuery( q);
-            rs.next();
-            return rs.getString("clave");
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-
-    // INSERTS
-
-    // Inserta les dades a la taula Unitat
-
-    void insertInfoTaulaUnitat(String num, String nom){
-        try {
-            String sNom = nom.replace("\'", "\\'");
-            String q = "INSERT INTO unitat (numero, nom) VALUES ('" + num + "','" + sNom + "')";
-            System.out.println(q);
-            query.execute(q);
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-
-
-    // UPDATES
-
-    // Actualitza les dades a la taula Unitat
-
-    void updateInfoTaulaUnitat(String id, String tipus, String contraseña){
-        try {
-            String q = "UPDATE usuario SET Tipus='"+tipus+"', Contraseña='"+contraseña+"' WHERE ID='"+id+"'";
-            System.out.println(q);
-            query.execute(q);
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    // DELETES
-
-    // Esborra la fila de la taula Unitat amb el número concret
-    void deleteInfoTaulaUnitat(String id){
-        try {
-            String q = "DELETE FROM usuario WHERE ID='"+id+"'";
-            System.out.println(q);
-            query.execute(q);
-        }
-        catch(Exception e) {
-            System.out.println(e);
         }
     }
 
@@ -592,37 +340,6 @@ public class DataBase {
         return null;
     }
 
-    public String[][] getInfoUsuarioEntrenador(){
-        String qf = "SELECT c.ID AS mat, c.Foto AS mat, c.Contraseña AS mod, c.Tipus AS mod\n" +
-                "FROM ID id, Foto f, Contraseña c, Tipus Tipus\n" +
-                "WHERE c.usuario ID=u.ID AND u.ID=12345";
-        System.out.println(qf);
-        int nf = this.getNumFilesQuery(qf);
-        String[][] info = new String[nf][4];
-
-        String q = "SELECT c.ID AS mat, c.Foto AS mat, c.Contraseña AS mod, c.Tipus AS mod\n" +
-                "FROM ID id, Foto f, Contraseña c, Tipus Tipus\n" +
-                "WHERE c.usuario ID=u.ID AND u.ID=12345"+
-                "ORDERED BY c.ID";
-        System.out.println(q);
-
-        try {
-            ResultSet rs = query.executeQuery(q);
-            int f=0;
-            while (rs.next()){
-                info[f][0] = rs.getString("id");
-                info[f][1] = rs.getString("f");
-                info[f][2] = rs.getString("c");
-                info[f][3] = rs.getString("Tipus");
-                f++;
-            }
-        }catch (Exception e){
-
-        }
-
-
-        return info;
-    }
 
     public int getNumFilesQuery(String q){
 
@@ -651,6 +368,224 @@ public class DataBase {
             System.out.println(e);
         }
         return false;
+    }
+
+    // Guarda la alerta del usuario en la BBDD.
+// Si el usuario ya tiene una alerta → actualiza (UPDATE).
+// Si no tiene ninguna → la crea (INSERT).
+// Así cada usuario tiene siempre como máximo una fila en la tabla alerta.
+    public boolean insertarAlerta(String texto, String usuarioID) {
+
+        if (texto == null || texto.trim().isEmpty()) {
+            System.out.println("ERROR: el texto de la alerta está vacío.");
+            return false;
+        }
+        if (usuarioID == null || usuarioID.isEmpty()) {
+            System.out.println("ERROR: no hay usuario en sesión.");
+            return false;
+        }
+
+        try {
+            // 1) Comprobamos si el usuario ya tiene una alerta
+            String sqlCheck = "SELECT ID FROM advertencias WHERE Usuario_ID = ? LIMIT 1";
+            java.sql.PreparedStatement psCheck = this.getConnection().prepareStatement(sqlCheck);
+            psCheck.setString(1, usuarioID);
+            java.sql.ResultSet rs = psCheck.executeQuery();
+
+            String alertaIDExistente = null;
+            if (rs.next()) {
+                alertaIDExistente = rs.getString("ID");
+            }
+            rs.close();
+            psCheck.close();
+
+            if (alertaIDExistente != null) {
+                // 2a) Ya existe → UPDATE (sobrescribimos el texto)
+                String sqlUpdate = "UPDATE advertencias SET Texto = ? WHERE ID = ?";
+                java.sql.PreparedStatement psUpdate = this.getConnection().prepareStatement(sqlUpdate);
+                psUpdate.setString(1, texto);
+                psUpdate.setString(2, alertaIDExistente);
+                psUpdate.executeUpdate();
+                psUpdate.close();
+
+                System.out.println("ALERTA ACTUALIZADA OK - ID: " + alertaIDExistente +
+                        " | Usuario: " + usuarioID +
+                        " | Texto: " + texto);
+            } else {
+                // 2b) No existe → INSERT (la creamos por primera vez)
+                String alertaID = "A" + System.currentTimeMillis();
+                if (alertaID.length() > 15) {
+                    alertaID = alertaID.substring(0, 15);
+                }
+
+                String sqlInsert = "INSERT INTO advertencias (ID, Texto, Usuario_ID) VALUES (?, ?, ?)";
+                java.sql.PreparedStatement psInsert = this.getConnection().prepareStatement(sqlInsert);
+                psInsert.setString(1, alertaID);
+                psInsert.setString(2, texto);
+                psInsert.setString(3, usuarioID);
+                psInsert.executeUpdate();
+                psInsert.close();
+
+                System.out.println("ALERTA CREADA OK - ID: " + alertaID +
+                        " | Usuario: " + usuarioID +
+                        " | Texto: " + texto);
+            }
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERROR AL GUARDAR LA ALERTA EN MYSQL");
+            return false;
+        }
+    }
+
+    // Devuelve el texto de la última alerta guardada por el usuario.
+// Si el usuario no tiene ninguna alerta, devuelve "".
+    public String getUltimaAlerta(String usuarioID) {
+        System.out.println("DEBUG getUltimaAlerta >>> buscando para usuarioID = [" + usuarioID + "]");
+        if (usuarioID == null || usuarioID.isEmpty()) {
+            System.out.println("DEBUG >>> usuarioID vacío, devuelvo ''");
+            return "";
+        }
+        try {
+            String sql = "SELECT Texto FROM advertencias WHERE Usuario_ID = ? ORDER BY ID DESC LIMIT 1";
+            java.sql.PreparedStatement ps = this.getConnection().prepareStatement(sql);
+            ps.setString(1, usuarioID);
+
+            java.sql.ResultSet rs = ps.executeQuery();
+            String texto = "";
+            if (rs.next()) {
+                texto = rs.getString("Texto");
+                System.out.println("DEBUG >>> query encontró: [" + texto + "]");
+            } else {System.out.println("DEBUG >>> query NO encontró ninguna fila");}
+            rs.close();
+            ps.close();
+            return texto;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERROR AL RECUPERAR LA ALERTA DE MYSQL");
+            return "";
+        }
+    }
+
+    // Guarda las estadísticas del usuario. Si ya existen → UPDATE, si no → INSERT.
+    public boolean guardarEstadisticas(String usuarioID, String nombreEquipo,
+                                       int año, int puntos, int goles, int asistencias,
+                                       int pj, int pg, int pe, int pp,
+                                       int tRojas, int tAmarillas) {
+
+        if (usuarioID == null || usuarioID.isEmpty()) {
+            System.out.println("ERROR: no hay usuario en sesión.");
+            return false;
+        }
+
+        try {
+            // 1) Comprobar si el usuario ya tiene estadísticas
+            String sqlCheck = "SELECT ID FROM estadisticas WHERE Usuario_ID = ? LIMIT 1";
+            java.sql.PreparedStatement psCheck = this.getConnection().prepareStatement(sqlCheck);
+            psCheck.setString(1, usuarioID);
+            java.sql.ResultSet rs = psCheck.executeQuery();
+
+            Integer idExistente = null;
+            if (rs.next()) {
+                idExistente = rs.getInt("ID");
+            }
+            rs.close();
+            psCheck.close();
+
+            if (idExistente != null) {
+                // UPDATE
+                String sqlUpdate = "UPDATE estadisticas SET NombreEquipo=?, Año=?, Puntos=?, Goles=?, " +
+                        "Assistencias=?, PJ=?, PG=?, PE=?, PP=?, T_Rojas=?, T_Amarillas=? " +
+                        "WHERE ID=?";
+                java.sql.PreparedStatement ps = this.getConnection().prepareStatement(sqlUpdate);
+                ps.setString(1, nombreEquipo);
+                ps.setInt(2, año);
+                ps.setInt(3, puntos);
+                ps.setInt(4, goles);
+                ps.setInt(5, asistencias);
+                ps.setInt(6, pj);
+                ps.setInt(7, pg);
+                ps.setInt(8, pe);
+                ps.setInt(9, pp);
+                ps.setInt(10, tRojas);
+                ps.setInt(11, tAmarillas);
+                ps.setInt(12, idExistente);
+                ps.executeUpdate();
+                ps.close();
+                System.out.println("ESTADÍSTICAS ACTUALIZADAS OK - Usuario: " + usuarioID);
+            } else {
+                // INSERT
+                String sqlInsert = "INSERT INTO estadisticas (NombreEquipo, Año, Puntos, Goles, Assistencias, " +
+                        "PJ, PG, PE, PP, T_Rojas, T_Amarillas, Usuario_ID) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                java.sql.PreparedStatement ps = this.getConnection().prepareStatement(sqlInsert);
+                ps.setString(1, nombreEquipo);
+                ps.setInt(2, año);
+                ps.setInt(3, puntos);
+                ps.setInt(4, goles);
+                ps.setInt(5, asistencias);
+                ps.setInt(6, pj);
+                ps.setInt(7, pg);
+                ps.setInt(8, pe);
+                ps.setInt(9, pp);
+                ps.setInt(10, tRojas);
+                ps.setInt(11, tAmarillas);
+                ps.setString(12, usuarioID);
+                ps.executeUpdate();
+                ps.close();
+                System.out.println("ESTADÍSTICAS CREADAS OK - Usuario: " + usuarioID);
+            }
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERROR AL GUARDAR ESTADÍSTICAS EN MYSQL");
+            return false;
+        }
+    }
+
+
+    // Actualiza el campo Foto de la tabla usuario
+    public boolean actualizarFotoUsuario(String usuarioID, String nombreFoto) {
+        if (usuarioID == null || usuarioID.isEmpty()) return false;
+        try {
+            String sql = "UPDATE usuario SET Foto = ? WHERE ID = ?";
+            java.sql.PreparedStatement ps = this.getConnection().prepareStatement(sql);
+            ps.setString(1, nombreFoto);
+            ps.setString(2, usuarioID);
+            ps.executeUpdate();
+            ps.close();
+            System.out.println("FOTO ACTUALIZADA OK - Usuario: " + usuarioID + " | Foto: " + nombreFoto);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Devuelve el nombre de la foto del usuario, o "" si no tiene.
+    public String getFotoUsuario(String usuarioID) {
+        if (usuarioID == null || usuarioID.isEmpty()) return "";
+        try {
+            String sql = "SELECT Foto FROM usuario WHERE ID = ? LIMIT 1";
+            java.sql.PreparedStatement ps = this.getConnection().prepareStatement(sql);
+            ps.setString(1, usuarioID);
+            java.sql.ResultSet rs = ps.executeQuery();
+            String foto = "";
+            if (rs.next()) {
+                foto = rs.getString("Foto");
+                if (foto == null) foto = "";
+            }
+            rs.close();
+            ps.close();
+            return foto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
 }

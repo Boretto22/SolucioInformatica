@@ -1,11 +1,15 @@
-import Estetica.*;
+package MainApp;
+
+import Estetica.Counter;
+import Estetica.GUI;
+import Estetica.Tipografia;
 import Servidor.DataBase;
 import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.io.File;
 
-public class    PlayCoach extends PApplet {
+public class PlayCoach extends PApplet {
 
 
     public static DataBase db;
@@ -18,10 +22,11 @@ public class    PlayCoach extends PApplet {
     PImage iconaMes, iconaMenys;
 
     boolean loginOK = true;
+    public static String sessionUserID = "";
 
 
     public static void main(String[] args) {
-        PApplet.main("PlayCoach");
+        PApplet.main("MainApp.PlayCoach");
     }
 
     public void settings() {
@@ -107,7 +112,10 @@ public class    PlayCoach extends PApplet {
         appGUI.text1.keyPressed(keyCode);
         appGUI.text2.keyPressed(keyCode);
         appGUI.textAlert.keyPressed(keyCode);
-        if (appGUI.nombreEquipoTextField != null) appGUI.nombreEquipoTextField.keyPressed(key, keyCode);
+        if (appGUI.nombreEquipoTextField != null) {
+            appGUI.nombreEquipoTextField.keyPressed(key, keyCode);
+            appGUI.saveUserStats();
+        }
         if (keyCode == LEFT) {
             //appPagedTable.prevPage();
             appGUI.prevPage();
@@ -120,7 +128,8 @@ public class    PlayCoach extends PApplet {
 
     public void updateHandCursor() {
         if (appGUI.b1.updateHandCursor(this) || appGUI.b2.updateHandCursor(this) || appGUI.blogin.updateHandCursor(this) ||
-                appGUI.b4.updateHandCursor(this) || appGUI.b5.updateHandCursor(this) || appGUI.b6.updateHandCursor(this) || appGUI.b7.updateHandCursor(this)) {
+                appGUI.b4.updateHandCursor(this) || appGUI.b5.updateHandCursor(this) || appGUI.b6.updateHandCursor(this) || appGUI.b7.updateHandCursor(this) ||
+                (appGUI.pantallaActual == GUI.PANTALLA.ALERTAS && appGUI.bGuardarAlerta.updateHandCursor(this))) {
             cursor(HAND);
         } else {
             cursor(ARROW);
@@ -187,6 +196,12 @@ public class    PlayCoach extends PApplet {
             appGUI.b7.setSelected(false);
             appGUI.pantallaActual = GUI.PANTALLA.ALERTAS;
 
+            // Cargar la advertencia del usuario actual en el TextField
+            println("DEBUG >>> sessionUserID al entrar en advertencias = [" + sessionUserID + "]");
+            String ultimaAlerta = db.getUltimaAlerta(sessionUserID);
+            appGUI.textAlert.setText(ultimaAlerta);
+            println("DEBUG >>> advertencia cargada = [" + ultimaAlerta + "]");
+
         }
         if (appGUI.btable1.mouseOverButton(this) && appGUI.btable1.isEnabled()) {
             //appPagedTable.nextPage();
@@ -194,6 +209,34 @@ public class    PlayCoach extends PApplet {
         } else if (appGUI.btable2.mouseOverButton(this) && appGUI.btable2.isEnabled()) {
             //appPagedTable.prevPage();
             appGUI.prevPage();
+        }
+
+        // Guardar estadísticas cuando se pulsa el botón Save
+        if (appGUI.pantallaActual == GUI.PANTALLA.INICIAL && appGUI.bSave.mouseOverButton(this)) {
+            println("BSave has been pressed!!");
+            appGUI.saveUserStats();
+        }
+
+        // Guardar alerta en la BBDD al pulsar el botón "Guardar alerta"
+        if (appGUI.pantallaActual == GUI.PANTALLA.ALERTAS &&
+                appGUI.bGuardarAlerta.mouseOverButton(this)) {
+
+            println("BGuardarAlerta has been pressed!!");
+
+            String textoAlerta = appGUI.textAlert.getText();
+
+            if (sessionUserID == null || sessionUserID.isEmpty()) {
+                println("ERROR: no hay usuario en sesión. Inicia sesión primero.");
+            } else if (textoAlerta == null || textoAlerta.trim().isEmpty()) {
+                println("ERROR: la alerta está vacía.");
+            } else {
+                boolean ok = db.insertarAlerta(textoAlerta, sessionUserID);
+                if (ok) {
+                    // Dejamos el texto visible en el TextField como confirmación
+                    appGUI.textAlert.setText(textoAlerta);
+                    println("Alerta guardada correctamente para usuario " + sessionUserID);
+                }
+            }
         }
 
         appGUI.text1.isPressed(this);
@@ -239,6 +282,13 @@ public class    PlayCoach extends PApplet {
             String contraseña = appGUI.text2.getText();
             if (db.loginCorrecte(id, contraseña)){
                 loginOK = true;
+                // El usuario escribe el NOMBRE en text1 → buscamos su ID en la tabla usuario
+                sessionUserID = db.getInfo("usuario", "ID", "nombre", appGUI.text1.getText());
+                appGUI.statsLoaded = false;
+                println("DEBUG >>> sessionUserID = [" + sessionUserID + "]");
+                println("DEBUG >>> longitud sessionUserID = " + (sessionUserID == null ? "NULL" : sessionUserID.length()));
+                println("SESSION USER ID: " + sessionUserID);
+
                 if (appGUI.blogin.mouseOverButton(this)) {
                     println("BLogIn has been pressed!!");
                     appGUI.currentUserNombre = appGUI.text1.getText();
@@ -262,21 +312,26 @@ public class    PlayCoach extends PApplet {
                 else if (appGUI.b2.isSelected()) tipus = "Jugador";
 
                 int id = (int)(Math.random() * Integer.MAX_VALUE);
+                String idStr = "U" + id;
 
                 String sql = "INSERT INTO usuario (ID, nombre, Contraseña, Tipus) VALUES (?, ?, ?, ?)";
 
                 java.sql.PreparedStatement ps = db.getConnection().prepareStatement(sql);
 
-                ps.setInt(1, id);
+                ps.setString(1, idStr);
                 ps.setString(2, nombre);
                 ps.setString(3, contraseña);
                 ps.setString(4, tipus);
 
                 ps.executeUpdate();
 
+                sessionUserID = idStr;
+                appGUI.statsLoaded = false;
+                appGUI.textAlert.setText("");
+
                 println(nombre);
 
-                println("USUARI GUARDAT A MYSQL - ID: ");
+                println("USUARI GUARDAT A MYSQL - ID: " + id);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -284,7 +339,7 @@ public class    PlayCoach extends PApplet {
             }
 
             if (appGUI.bsignup.mouseOverButton(this)) {
-                println("BLogIn has been pressed!!");
+                println("BSignUp has been pressed!!");
                 appGUI.pantallaActual = GUI.PANTALLA.INICIAL;
             }
         }
@@ -307,17 +362,33 @@ public class    PlayCoach extends PApplet {
         }
     }
 
-    // Carrega Imatge
+    // Cargar Imagen
     public void fileSelected(File selection) {
         if (selection == null) {
             println("No s'ha seleccionat cap fitxer.");
         } else {
+            String nombreFoto = selection.getName();
 
-            // Obtenim la ruta del fitxer seleccionat
-            String rutaImatge = selection.getAbsolutePath();
+            // Copiamos la foto a data/fotos/ del proyecto
+            try {
+                java.io.File destino = new java.io.File(sketchPath("data/fotos/" + nombreFoto));
+                destino.getParentFile().mkdirs();
+                java.nio.file.Files.copy(selection.toPath(),
+                        destino.toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                println("Foto copiada a: " + destino.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            appGUI.loadImage = loadImage(rutaImatge);  // Actualitzam imatge
-            appGUI.titol = selection.getName();  // Actualitzam títol
+            // Mostramos la imagen en la UI
+            appGUI.loadImage = loadImage("fotos/" + nombreFoto);
+            appGUI.titol = nombreFoto;
+
+            // Guardamos el nombre en la BBDD (tabla usuario, columna Foto)
+            if (sessionUserID != null && !sessionUserID.isEmpty()) {
+                db.actualizarFotoUsuario(sessionUserID, nombreFoto);
+            }
         }
     }
 }
